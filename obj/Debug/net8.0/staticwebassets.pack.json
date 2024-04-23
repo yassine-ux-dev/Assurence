@@ -1,0 +1,129 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorApp.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BlazorApp.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\A-Logo.png",
+      "PackagePath": "staticwebassets\\A-Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Dashboard.css",
+      "PackagePath": "staticwebassets\\Dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Ha.css",
+      "PackagePath": "staticwebassets\\Ha.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Inscrire.jpg",
+      "PackagePath": "staticwebassets\\Inscrire.jpg"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\L.png",
+      "PackagePath": "staticwebassets\\L.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Logo.png",
+      "PackagePath": "staticwebassets\\Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Logup.css",
+      "PackagePath": "staticwebassets\\Logup.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Lol.css",
+      "PackagePath": "staticwebassets\\Lol.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\New.css",
+      "PackagePath": "staticwebassets\\New.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Post.css",
+      "PackagePath": "staticwebassets\\Post.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Pub.png",
+      "PackagePath": "staticwebassets\\Pub.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\QUESTION.jpeg",
+      "PackagePath": "staticwebassets\\QUESTION.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\T.png",
+      "PackagePath": "staticwebassets\\T.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Time.css",
+      "PackagePath": "staticwebassets\\Time.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\V.png",
+      "PackagePath": "staticwebassets\\V.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\W.png",
+      "PackagePath": "staticwebassets\\W.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\assureur-credit.jpg",
+      "PackagePath": "staticwebassets\\assureur-credit.jpg"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\build.jpg",
+      "PackagePath": "staticwebassets\\build.jpg"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\footer.css",
+      "PackagePath": "staticwebassets\\footer.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\login.css",
+      "PackagePath": "staticwebassets\\login.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\publier.css",
+      "PackagePath": "staticwebassets\\publier.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\sidebar.css",
+      "PackagePath": "staticwebassets\\sidebar.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BlazorApp.props",
+      "PackagePath": "build\\BlazorApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BlazorApp.props",
+      "PackagePath": "buildMultiTargeting\\BlazorApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BlazorApp.props",
+      "PackagePath": "buildTransitive\\BlazorApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

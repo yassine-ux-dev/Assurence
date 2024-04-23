@@ -1,0 +1,119 @@
+@page "/logup"
+
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@using System.Text.RegularExpressions
+@inject AppDbContext context
+@inject NavigationManager Navigation
+
+
+<EditForm Model="@user" OnValidSubmit="@AddUser" FormName="add-form" method="post">
+  <DataAnnotationsValidator />
+  <div class="signup" style="position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);width:400px">
+    <h2 class="title" style=" text-align: center;">𝐂𝐫é𝐞𝐫 𝐮𝐧 𝐜𝐨𝐦𝐩𝐭𝐞</h2>
+
+    <form class="form" novalidate="novalidate" method="post">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- First column -->
+        <div>
+          <!-- Label with InputText -->
+          <div class="mb-4">
+            <label for="signup-name" class="block mb-2">Nom</label>
+            <InputText id="signup-name" class="form-control" placeholder="Nom" @bind-Value="user.Name" type="text"
+              RegularExpression(@"^[a-zA-Z]{2,}$", ErrorMessage="Name must not be a number " ) />
+          </div>
+        </div>
+
+        <!-- Second column -->
+        <div>
+          <!-- Label with Select dropdown -->
+          <div class="mb-4">
+            <label for="signup-name-select" class="block mb-2">Type</label>
+            <select id="signup-name-select" class="form-select w-full" @bind="user.Name">
+              <option value="">Client/Fournisseur</option>
+              <option value="John">Client</option>
+              <option value="Jane">Fournisseur</option>
+
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+
+        <label for="Email">E-mail</label>
+        <InputText class="form-control" placeholder="E-mail" required @bind-Value="user.EmailId" id="email"
+          @oninput="ValidateEmail" type="email" />
+
+        <ValidationMessage For="() =>user.EmailId" />
+
+      </div>
+
+
+      <div class="form-group">
+        <label style="color:red;">@err</label>
+        <br>
+        <label for="signup-email">Mot de Passe</label>
+
+
+        <InputText type="password" id="signup-email" class="form-control" placeholder="Mot de passe" required
+          @bind-Value="user.Password" />
+
+        <ValidationMessage For="() => user.ConfirmPassword" />
+
+      </div>
+      <div class="form-group">
+        <label for="signup-email">Mot de Passe de conformation</label>
+
+
+        <InputText type="password" id="signup-email" class="form-control" placeholder="mot de passe de confirmation"
+          required @bind-Value="user.ConfirmPassword" />
+        <ValidationMessage For="() => user.ConfirmPassword" />
+
+      </div>
+
+      <br>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-40 rounded">
+        Enregistrer
+      </button>
+
+
+    </form>
+  </div>
+</EditForm>
+
+
+@code {
+  [SupplyParameterFromForm]
+  private User user { get; set; } = new();
+  private string ErrorMessage { get; set; }
+
+
+  private string err = "";
+
+  private void ClearForm() => user = new();
+
+  private void ValidateEmail(ChangeEventArgs e)
+  {
+    user.EmailId = e.Value.ToString();
+
+    // Define custom email validation using regular expression
+    string pattern = @"^[^@\s]+[^@\s]+\.(com|net|org|gov)$";
+    bool isValid = Regex.IsMatch(user.EmailId, pattern);
+
+    ErrorMessage = isValid ? null : "Email must be in the format 'example@gmail.com'";
+  }
+
+  private async Task AddUser()
+  {
+    if (user.Password == user.ConfirmPassword)
+    {
+      context.Users.Add(user);
+      await context.SaveChangesAsync();
+      err = "";
+    }
+    else
+    {
+      err = "Enter a valide password";
+    }
+  }
+}

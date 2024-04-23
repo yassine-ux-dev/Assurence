@@ -1,0 +1,127 @@
+@page "/Login"
+
+@layout LoginLayout
+@using System.Data.SqlClient
+@using System.Data
+@using System.IO
+@using BlazorApp.Components.Service
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext context
+@inject NavigationManager Navigation
+@inject UserService userService
+
+
+
+
+<EditForm Model="@user" OnValidSubmit="@Log" FormName="add-form" method="post">
+
+  <DataAnnotationsValidator />
+
+
+  <div class="container">
+
+    <div class="login-content" style="width: 300px;">
+      <form action=" index.html" method="POST">
+
+        <img src="/A-logo.png" style="height:190px;" mx-auto" alt="logo">
+
+
+        <div class="input-div one">
+          <div class="i">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="div">
+
+
+
+            <InputText type="emailId" class="input" @bind-Value="user.EmailId" placeholder="𝙴-𝚖𝚊𝚒𝚕" />
+            <ValidationMessage For="() => user.EmailId" />
+          </div>
+        </div>
+
+
+        <div class="input-div pass">
+          <div class="i">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="div">
+
+            <InputText type="password" class="input " @bind-Value="user.Password" id="time"
+              placeholder="𝙼𝚘𝚝 𝚍𝚎 𝚙𝚊𝚜𝚜𝚎" />
+            <ValidationMessage For="() => user.Password" />
+
+          </div>
+        </div>
+        <br>
+
+
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-32 rounded">
+          Button
+        </button>
+        <p class="message flex items-center">Non enregistré? <a href="Logup" class="ml-1 underline">Créer un compte</a>
+        </p>
+
+
+      </form>
+    </div>
+  </div>
+</EditForm>
+<script>
+  const inputs = document.querySelectorAll(".input");
+
+
+  function addcl()
+  {
+    let parent = this.parentNode.parentNode;
+    parent.classList.add("focus");
+  }
+
+  function remcl()
+  {
+    let parent = this.parentNode.parentNode;
+    if (this.value == "")
+    {
+      parent.classList.remove("focus");
+    }
+  }
+
+
+  inputs.forEach(input =>
+  {
+    input.addEventListener("focus", addcl);
+    input.addEventListener("blur", remcl);
+  });
+
+</script>
+
+
+@code {
+  [SupplyParameterFromForm]
+
+  private User user { get; set; } = new();
+  private User Auth { get; set; } = new();
+  public string Err = string.Empty;
+
+  private string? imageSource;
+
+
+
+
+  private async Task Log()
+  {
+
+    Console.WriteLine("Logging" + user.EmailId + user.Name);
+    Auth = await userService.GetUserByMail(user.EmailId);
+    if (Auth.Password == user.Password)
+    {
+      Navigation.NavigateTo("/Dashboard");
+    }
+    else
+    {
+      Err = "Invalid Credentials";
+    }
+
+  }
+
+}

@@ -1,0 +1,104 @@
+@page "/PF/{Id:int}"
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext context
+@using BlazorApp.Components.Bd;
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Model;
+@using Microsoft.AspNetCore.Components;
+
+
+<EditForm Model="@ao" OnValidSubmit="@migrate" FormName="postt" class="w-full md:w-1/2 lg:w-2/3 xl:w-1/2 mx-auto">
+  <div class="w-full md:w-[810px] md:ml-[-200px] ">
+
+    <div class="overflow-x-auto h-[700px]">
+      <table class="w-full " style="border: 1px solid #ffecec;">
+        <thead class="bg-gray-50">
+          <tr>
+            <th colspan="2" class="py-3 text-center font-semibold">
+              Mon besoin
+            </th>
+          </tr>
+        </thead>
+        <tbody class="overflow-x-auto h-[470px]">
+          <tr>
+            <td class="py-2 font-semibold">Titre</td>
+            <td class="py-2">@ao.Titre</td>
+          </tr>
+          <tr>
+            <td class="py-2 font-semibold">Email Address</td>
+            <td class="py-2">@ao.EmailA</td>
+          </tr>
+          <tr>
+            <td class="py-2 font-semibold">Description</td>
+            <td class="py-2">@ao.Description</td>
+          </tr>
+          <tr>
+            <td class="py-2 font-semibold">Date de demande</td>
+            <td class="py-2">@ao.DateDemande</td>
+          </tr>
+          <tr>
+            <td class="py-2 font-semibold">Délais de réponse</td>
+            <td class="py-2">@ao.DelaisR</td>
+          </tr>
+          <tr>
+            <td class="py-2 font-semibold">Address</td>
+            <td class="py-2">@ao.Adress</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+        <thead class="bg-gray-50 ">
+          <tr>
+            <th colspan="2" class="py-3 text-center font-semibold">
+              Documents liés
+            </th>
+          </tr>
+        </thead>
+        <tr>
+          <td colspan="2" class="py-2">@ao.Document</td>
+        </tr>
+      </table>
+    </div>
+    <div class="text-center mt-6">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Publier
+      </button>
+    </div>
+  </div>
+</EditForm>
+
+@code {
+  [Parameter]
+  public int Id { get; set; }
+
+  private Brouillon ao { get; set; } = new Brouillon();
+  private AO app { get; set; } = new AO();
+
+  protected override async Task OnInitializedAsync()
+  {
+    // Retrieve the Brouillon entity from the database based on the Id parameter
+    ao = await context.Brouillons.FirstOrDefaultAsync(b => b.Id == Id);
+  }
+
+  private async Task migrate()
+  {
+    Console.WriteLine("Aoffres updated successfully from Brouillon!");
+
+    // Update Aoffres entity properties with values from the Brouillon entity (ao)
+    app.Titre = ao.Titre;
+    app.EmailA = ao.EmailA;
+    app.Description = ao.Description;
+    app.Adress = ao.Adress;
+    // Copy other properties as needed
+    app.Document = ao.Document;
+    // Set the Aoffres entity's Id to the same value as the Brouillon entity's Id
+    app.Type = "Devis";
+
+    // Update the Aoffres entity instead of adding a new one
+    context.Aoffres.Update(app);
+
+    // Save changes to the database
+    await context.SaveChangesAsync();
+    Navigation.NavigateTo("/Dashboard");
+  }
+}

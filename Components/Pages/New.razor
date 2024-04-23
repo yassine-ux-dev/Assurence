@@ -1,0 +1,135 @@
+@page "/New/{id:int}"
+@using Microsoft.AspNetCore.Components.Forms
+@using System.IO
+@using Microsoft.Extensions.Logging
+@inject AppDbContext context
+@inject NavigationManager Navigation
+
+<EditForm Model="@ao" OnValidSubmit="@AddBrouillon" FormName="Postt" class="container my-4">
+  <div>
+    <p class="mb-2 font-medium">Cas initial</p>
+    <div class="mt-2 mb-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-full">
+          <label for="customFile" class="block text-sm font-medium text-gray-700">Choose File</label>
+          <div class="mt-1 flex items-center justify-between">
+            <InputFile OnChange="HandleFileChange" type="file" required
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mb-2 font-medium">L'utilisateur a choisi un nouveau fichier</p>
+    <div class="mt-2 mb-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-full">
+          <label for="customFile2" class="block text-sm font-medium text-gray-700">Choose File</label>
+          <div class="mt-1 flex items-center justify-between">
+            <input type="file"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="customFile2" lang="fr">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="mb-2 font-medium">L'utilisateur a choisi un nouveau fichier</p>
+    <div class="mt-2 mb-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-full">
+          <label for="customFile2" class="block text-sm font-medium text-gray-700">Choose File</label>
+          <div class="mt-1 flex items-center justify-between">
+            <input type="file"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="customFile2" lang="fr">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="mb-2 font-medium">L'utilisateur a choisi un nouveau fichier</p>
+    <div class="mt-2 mb-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-full">
+          <label for="customFile2" class="block text-sm font-medium text-gray-700">Choose File</label>
+          <div class="mt-1 flex items-center justify-between">
+            <input type="file"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              id="customFile2" lang="fr">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Add more cases as needed -->
+
+    <div class="flex justify-end" style="margin-top: 20px;">
+
+      <a type="submit"
+        class="mr-2 bg-white-500 hover:bg-blue-100 border border-blue-500 text-black font-weight py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        style="height: 35px;">
+        <i class="fa-solid fa-pen"></i>
+        Sauvegarder dans le brouillon</a>
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        style="height: 35px;">Suivant</button>
+    </div>
+  </div>
+</EditForm>
+
+
+
+@code {
+  private Brouillon ao = new Brouillon();
+  [Parameter]
+  public int Id { get; set; }
+  public byte[] Document { get; set; } = new byte[1000];
+
+
+  private async Task HandleFileChange(InputFileChangeEventArgs e)
+  {
+    var file = e.File;
+
+    if (file != null)
+    {
+      ao.Document = await ReadFileAsync(file); // Read file content into Document property
+      ao.FileName = file.Name; // Set the FileName property to the name of the uploaded file
+      ao.FileType = Path.GetExtension(file.Name); // Set the FileType property to the file extension
+
+      // Log the details of the uploaded file
+      Console.WriteLine("File uploaded - Name: {FileName}, Type: {FileType}, Size: {FileSize} bytes",
+      ao.FileName, ao.FileType, ao.Document.Length);
+    }
+  }
+
+  private async Task<byte[]> ReadFileAsync(IBrowserFile file)
+  {
+    using (var memoryStream = new MemoryStream())
+    {
+      await file.OpenReadStream().CopyToAsync(memoryStream);
+      return memoryStream.ToArray();
+    }
+  }
+
+  private async Task AddBrouillon()
+  {
+    Console.WriteLine("File uploaded - Name: " +
+    ao.FileName, ao.FileType, ao.Document.Length);
+    // Save ao to the database
+    context.Brouillons.Update(ao);
+    await context.SaveChangesAsync();
+
+    // Navigate to the details page of the newly added item
+    Navigation.NavigateTo($"/PF/{ao.Id}");
+  }
+
+  protected override void OnInitialized()
+  {
+    // Load existing Brouillon item from service or database
+    ao = context.Brouillons.FirstOrDefault(b => b.Id == Id);
+  }
+}

@@ -1,0 +1,107 @@
+@page "/post"
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext context
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject AoService aoService
+@using System
+
+
+
+
+<EditForm Model="@ao" OnValidSubmit="@AddAO" FormName="Posttd" class="w-full  md:w-1/2 max-w-lg mx-auto" method="post">
+  <DataAnnotationsValidator />
+
+  <img src="/A-logo.png" style="height: 190px;" alt="logo" class="max-w-3xl mx-auto text-center">
+
+
+  <!-- Center content using Bootstrap grid system -->
+  <div class=" inset-0 flex px-290 justify-center items-center bg-gray-20">
+    <div class="col-lg-150">
+
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="text-4xl font-bold text-gray-900 leading-tight mb-4">
+          Demande d'appel d'offre
+        </h3>
+      </div>
+
+      <form class="form" style="margin-top: 30px;">
+        <div class="input-box">
+          <label>Titre</label>
+          <InputText type="text" class="form-control" placeholder="Enter full name" required @bind-Value="ao.Titre" />
+        </div>
+        <div class="input-box">
+          <label>Email Address</label>
+          <InputText type="text" class="form-control" placeholder="Enter email address" required
+            @bind-Value="ao.EmailA" />
+        </div>
+        <div class="input-box">
+          <label>Description</label>
+          <InputTextArea id="message" class="form-control" @bind-Value="ao.Description" rows="4"
+            placeholder="Write your thoughts here..."></InputTextArea>
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label>Date de demande</label>
+            <InputDate class="form-control" placeholder="Enter birth date" required @bind-Value="ao.DelaisR" />
+          </div>
+          <div class="input-box">
+            <label>Delais de reponse</label>
+            <InputDate class="form-control" placeholder="Enter birth date" required @bind-Value="ao.DateDemande" />
+          </div>
+        </div>
+        <div class="input-box address">
+          <label>Address</label>
+          <InputText type="text" class="form-control" placeholder="Enter street address" required
+            @bind-Value="ao.Adress" />
+
+        </div>
+
+        <br>
+        <div class="flex justify-end" style="margin-top: 20px;">
+
+          <a type="submit"
+            class="mr-2 bg-white-500 hover:bg-blue-100 border border-blue-500 text-black font-weight py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            style="height: 35px;">
+            <i class="fa-solid fa-pen"></i>
+            Sauvegarder dans le brouillon</a>
+          <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            style="height: 35px;">Suivant</button>
+        </div>
+
+      </form>
+
+    </div>
+
+
+  </div>
+
+
+</EditForm>
+
+
+
+
+@code {
+  [SupplyParameterFromForm]
+  private Brouillon ao { get; set; } = new Brouillon();
+
+  private void ClearForm() => ao = new Brouillon();
+
+  private async Task AddAO()
+  {
+    Console.WriteLine("adding " + ao.Adress);
+    ao.DateDemande = DateTime.Now;
+    ao.Document = Array.Empty<byte>();
+    ao.FileName = "";
+    ao.FileType = "";
+    await context.Brouillons.AddAsync(ao);
+    await context.SaveChangesAsync();
+
+    Navigation.NavigateTo($"/New/{ao.Id}");
+
+  }
+
+}

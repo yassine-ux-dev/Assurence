@@ -1,0 +1,94 @@
+@page "/Dashboa"
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+
+
+<h3 class="text-xl font-bold mb-4">Dashboard</h3>
+
+@if (aoffres != null && aoffres.Any())
+{
+  @foreach (var ao in aoffres)
+  {
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      img {
+        width: 00px;
+        /* adjust as needed */
+        height: auto;
+      }
+
+      .left-column {
+        width: 50%;
+        text-align: left;
+      }
+
+      .right-column {
+        width: 50%;
+        text-align: right;
+      }
+
+      .published-date-container,
+      .closed-date-container {
+        display: inline-flex;
+        align-items: center;
+      }
+    </style>
+
+
+    <table class="table table-hover" style="width: 1200px;">
+
+
+      <tr>
+        <td class="left-column">
+          <b>@ao.Titre</b><br>
+          @ao.Description
+        </td>
+        <td class="right-column">
+          <i class="fa-solid fa-calendar-days"></i>
+          Published @ao.DateDemande.ToString("yyyy-MM-dd")
+          <svg id="g_28_tooltip" viewBox="0 150 20 22" style="" class="mets-icon svg-calendar" focusable="false"
+            tabindex="-1" width="16" height="16">
+
+          </svg>
+          <i class="fa-solid fa-stopwatch"></i>&nbsp&nbsp&nbsp&nbsp&nbsp
+          Closed @ao.DelaisR.ToString("yyyy-MM-dd")
+          <svg id="g_29_tooltip" viewBox="400 200 20 20" style="" class="mets-icon svg-clock" focusable="false"
+            tabindex="-1" width="16" height="16">
+
+          </svg>
+
+        </td>
+      </tr>
+
+    </table>
+  }
+}
+else
+{
+  <p>No data available.</p>
+}
+
+
+@code {
+  List<AO> aoffres;
+
+  protected override async Task OnInitializedAsync()
+  {
+    // Load data asynchronously
+    aoffres = await aoService.GetAo();
+
+    // Sort the list by Titre property
+    aoffres = aoffres.OrderBy(ao => ao.Titre).ToList();
+  }
+}
