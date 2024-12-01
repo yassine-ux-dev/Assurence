@@ -14,6 +14,7 @@ namespace BlazorApp.Components.Model
     public string FileName { get; set; }
     public string FileType { get; set; }
     public byte[] Document { get; set; }
+    public IFormCollection Attachements { get; set; }
 
 
 

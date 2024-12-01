@@ -58,16 +58,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGMS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Fichier.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaWNoaWVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Filllle.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaWxsbGxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Final.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaW5hbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Footer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGb290ZXIucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/In.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/InputPassword.razor]
