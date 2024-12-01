@@ -1,0 +1,104 @@
+@page "/Mesnotifications"
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+<div style="height: 50px;"></div>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex gap-3 items-center mb-6">
+    <img src="/notification.png" class="mr-2">
+    <p class="text-2xl tracking-tight text-gray-900">Message</p>
+  </div>
+  <hr class="mb-6">
+
+  <div class="flex w-full justify-start">
+    <div class="w-1/4">
+      <ul class="nav flex flex-col items-start">
+        <li>
+          <a href="/Mesrelations" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-box mr-2"></i>
+            <span>Mes relations</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Mesnotifications" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-bell mr-2"></i>
+            <span style="color:blue">Mes notifications</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Contacterlequipe" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-message mr-2"></i>
+            <span>Contacter l'équipe</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-3/4">
+      <div class="bg-light-taupe shadow p-4 rounded-lg">
+        <div class="p-4 border-b">
+          <h1 class="text-lg font-semibold">Notifications</h1>
+
+        </div>
+
+
+        @if (notifications != null && notifications.Any())
+        {
+          foreach (var nfc in notifications)
+          {
+            <div class="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
+              <span class="flex h-2 w-2 translate-y-1.5 rounded-full bg-blue-500"></span>
+              <div class="grid gap-1">
+                <p class="text-sm font-medium">@nfc.Nfc</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">@GetTimeElapsed(nfc.Date)</p>
+              </div>
+            </div>
+          }
+        }
+        else
+        {
+          <p>Vous n'avez pas des notifications pour le moment.</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  public List<BlazorApp.Components.Model.Notification> notifications;
+
+  protected override async Task OnInitializedAsync()
+  {
+    notifications = await userService.GetNotifications(userService.GetEmailIdFromCookie());
+    notifications = notifications.OrderByDescending(nfc => nfc.Date).ToList();
+  }
+  public string GetTimeElapsed(DateTime notificationTime)
+  {
+    TimeSpan timeDifference = DateTime.Now - notificationTime;
+
+    if (timeDifference.TotalMinutes < 1)
+    {
+      return "il y a quelques secondes";
+    }
+    else if (timeDifference.TotalMinutes < 60)
+    {
+      return $"il y a {timeDifference.Minutes}min";
+    }
+    else if (timeDifference.TotalHours < 24)
+    {
+      return $"il y a {timeDifference.Hours}h";
+    }
+    else if (timeDifference.TotalDays < 30)
+    {
+      return $"il y a {timeDifference.Days}j";
+    }
+    else
+    {
+      return "il y a longtemps";
+    }
+  }
+
+
+}

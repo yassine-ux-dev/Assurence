@@ -1,0 +1,130 @@
+@page "/logupFournisseur"
+
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@using System.Text.RegularExpressions
+@inject AppDbContext context
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject UserService userService
+@inject PasswordHandler passHandler
+<style>
+  body {
+    margin: 30;
+    padding: 0;
+    background-image: url('/Reseau.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+
+  .box {
+    position: relative;
+    height: 630px;
+    width: 450px;
+    font-family: Helvetica;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    padding-left: 10px;
+    padding-right: 10;
+    margin-right: 1100px;
+    border-radius: 20px;
+    padding-bottom: 220px;
+  }
+</style>
+<div class="carousel-inner" style="width:100%; height:100%">
+  <div class="carousel-item active">
+    <svg class="bd-placeholder-img w-full h-screen sm:h-96" style="min-height: 450px;" focusable="false" role="img">
+
+    </svg>
+    <EditForm Model="@user" OnValidSubmit="@AddUser" FormName="add-form" method="post">
+      <DataAnnotationsValidator />
+
+      <div class="" style="margin-bottom: 400px;margin-top: 10px;">
+        <div class="signup"
+          style="position: absolute;top: 50%; margin-bottom: 1000px; left: 50%;transform: translate(-50%, -50%);width:400px">
+          <div class="box ">
+            <h2 class="title" style=" text-align: center;  color:black">𝐂𝐫é𝐞𝐫 𝐮𝐧 𝐜𝐨𝐦𝐩𝐭𝐞</h2>
+            <form class="form" novalidate="novalidate" method="post">
+              <div class="form-group">
+                <label for="Name">Nom de l'entreprise</label>
+                <InputText class="form-control" placeholder="Nom" required @bind-Value="user.Name" id="Name" />
+                <ValidationMessage For="() => user.Name" />
+              </div>
+              <div class="form-group">
+                <label for="Phone">Phone</label>
+                <InputText class="form-control" placeholder="Phone number" required @bind-Value="user.Phone"
+                  id="Phone" />
+                <ValidationMessage For="() => user.Phone" />
+              </div>
+              <div class="form-group">
+                <label for="Email">E-mail</label>
+                <InputText class="form-control" placeholder="E-mail" required @bind-Value="user.EmailId" id="Email"
+                  type="email" />
+                <ValidationMessage For="() => user.EmailId" />
+              </div>
+              <div class="form-group">
+                <label for="Password">Mot de Passe</label>
+                <InputText type="password" id="Password" class="form-control" placeholder="Mot de passe" required
+                  @bind-Value="user.Password" />
+                <ValidationMessage For="() => user.Password" />
+              </div>
+              <div class="form-group">
+                <label for="ConfirmPassword">Mot de Passe de confirmation</label>
+                <InputText type="password" id="ConfirmPassword" class="form-control"
+                  placeholder="Mot de passe de confirmation" required @bind-Value="@Confpass" />
+                <ValidationMessage For="() => Confpass" />
+              </div>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-40 ml-2 rounded">
+                Enregistrer
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </EditForm>
+  </div>
+</div>
+
+@code {
+  [SupplyParameterFromForm]
+  private Fournisseur user { get; set; } = new();
+  [SupplyParameterFromForm]
+
+  public string Confpass { get; set; }
+
+  private string err = "";
+
+  private void ClearForm() => user = new();
+
+
+
+
+  private async Task AddUser()
+  {
+    if (user.Password == Confpass)
+    {
+      if (await userService.GetFournisseur(user.EmailId) is null)
+      {
+        if (await userService.GetClient(user.EmailId) is null)
+        {
+          user.Password = passHandler.HashPassword(user.Password);
+          user.DateInscription = DateTime.Today;
+          await userService.AddFournisseur(user);
+          Navigation.NavigateTo("/");
+        }
+        else { err = "E-mail exsite déja comme Client"; }
+      }
+      else
+      {
+        err = "E-mail exsite déja";
+      }
+    }
+
+    else
+    {
+      err = "Mot de passe invalide";
+    }
+  }
+}

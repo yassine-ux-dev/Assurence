@@ -1,0 +1,139 @@
+@page "/TableAppelOffre"
+@using BlazorApp.Components.Service
+@inject UserService userService
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar With Bootstrap</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="Add.css">
+
+</head>
+@if (userService.IsAuthenticated())
+{
+    if (userService.GetRoleFromCookie() == "Admin")
+    {
+
+        <body>
+            <div class="wrapper">
+                <aside id="sidebar">
+                 <SideAdmin/>
+                </aside>
+                <div class="main">
+                    <nav class="navbar navbar-expand px-4 py-3">
+                        <form action="#" class="d-none d-sm-inline-block">
+
+                        </form>
+                        <div class="navbar-collapse collapse">
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item dropdown">
+                                    <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                                        <img src="/account.png" class="avatar img-fluid" alt="">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end rounded">
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <main class="content px-3 py-4">
+                        <div class="container-fluid">
+                            <div class="mb-3">
+
+                               <Entet/>
+                               
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr class="highlight">
+                                                    <div class=" flex justify-between items-center text-white px-4 py-2"
+                                                        style="  background-color: #293b5f;">
+                                                        <div class="text-white">
+                                                            Liste des appels d'offres : <span id="resultCount"></span>
+                                                        </div>
+                                                        <div class="flex-shrink">
+                                                            <input type="text" id="searchInput"
+                                                                class="px-4 py-2 border border-gray-300 rounded-md"
+                                                                placeholder="Rechercher par titre ..."
+                                                                onkeyup="searchTable()" />
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4"
+                                                id="tableBody">
+                                                @if(aoffres != null){
+  @foreach (var ao in aoffres)
+            {
+                                                <tr>
+                                                    <td class="px-4 py-2 text-left">
+                                                        <a href="@($"/{ao.Id}")" class="flex items-center">
+                                                            <i class="fas fa-spinner text-lg mr-4"></i>
+                                                            <b class="text-black">@ao.Titre</b>
+                                                        </a>
+                                                    </td>
+                                                    <td class="px-4 py-2 text-right">
+                                                        <div class="flex flex-col items-end">
+                                                            <div class="flex items-center">
+                                                                <i class="fa-solid fa-calendar-days mr-2"></i>
+                                                                <span class="text-base">Publié le
+                                                                        @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+                                                            </div>
+                                                            <div class="flex items-center mt-2">
+                                                                <i class="fa-solid fa-stopwatch mr-2"></i>
+                                                                <span class="text-base">Clôture le
+                                                                        @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+}}
+                                            </tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+            <script src="script.js"></script>
+        </body>
+    }
+}
+<script>
+    const hamBurger = document.querySelector(".toggle-btn");
+
+    hamBurger.addEventListener("click", function () {
+        document.querySelector("#sidebar").classList.toggle("expand");
+    });</script>
+
+</html>
+
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@code {
+    List<AO> aoffres;
+    protected override async Task OnInitializedAsync()
+    {
+        aoffres = await aoService.GetAo();
+        aoffres = aoffres.OrderBy(ao => ao.Titre).ToList();
+    }
+}

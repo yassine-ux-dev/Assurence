@@ -1,0 +1,79 @@
+@page "/Mesrelations"
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+@inject AoService aoService
+<div style="height: 50px;"></div>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex gap-3 items-center mb-6">
+    <img src="/notification.png" class="mr-2">
+    <p class="text-2xl tracking-tight text-gray-900">Message</p>
+  </div>
+  <hr class="mb-6">
+
+  <div class="flex w-full justify-start">
+    <div class="w-1/4">
+      <ul class="nav flex flex-col items-start">
+        <li>
+          <a href="/Mesrelations" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-box mr-2"></i>
+            <span style="color:blue">Mes relations</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Mesnotifications" class="nav-item  flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-bell mr-2"></i>
+            <span>Mes notifications</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Contacterlequipe" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-message mr-2"></i>
+            <span>Contacter l'équipe</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-3/4">
+      <div class="bg-light-taupe shadow p-4 rounded-lg">
+        <div class="flex items-center mb-4">
+          <i class="fa-solid fa-bell mr-2"></i>
+          <p class="text-2xl tracking-tight text-gray-900">Mes relations</p>
+        </div>
+        <hr class="mb-4">
+
+        @if (relations != null && relations.Any())
+        {
+          foreach (var rlc in relations)
+          {
+
+            <div class="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
+              <span class="flex h-2 w-2 translate-y-1.5 rounded-full bg-blue-500"></span>
+              <div class="grid gap-1">
+                <p class="text-sm font-medium">@rlc.</p>
+
+              </div>
+            </div>
+
+          }
+        }
+        else
+        {
+          <p>Vous n'avez pas des relations pour le moment.</p>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  List<string> relations;
+  protected override async Task OnInitializedAsync()
+  {
+    relations = await aoService.GetRelations(userService.GetEmailIdFromCookie());
+  }
+}

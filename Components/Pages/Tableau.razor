@@ -1,0 +1,101 @@
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+
+<div class="overflow-x-auto">
+  @if (reponses != null && reponses.Any())
+  {
+    <table class="min-w-full divide-y divide-gray-100">
+      <thead>
+        <tr class="highlight">
+          <th class="px-5 py-1">Name fournisseur</th>
+          <th class="px-5 py-1">Email fournisseur</th>
+          <th class="px-20 py-1">Description</th>
+          <th class="px-5 py-1">Prix Proposé</th>
+          <th class="px-5 py-1">Date Saisie</th>
+        </tr>
+
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
+        @foreach (var rp in reponses)
+        {
+          <tr>
+            <td class="px-4 py-2 text-left">
+              <b class="text-black">@name()</b>
+            </td>
+            <td class="px-4 py-2 text-left">
+              <b class="text-black">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=@email("noadd")"
+                  class="text-blue-500 hover:underline text-left font-medium">
+
+                  @email("add")</a>
+              </b>
+
+            </td>
+
+            <td class="px-4 py-2 text-left">
+              <b class="text-black">@rp.Dettail</b>
+            </td>
+
+            <td class="px-4 py-2 text-left">
+              <b class="text-black">@rp.PrixProp</b>
+            </td>
+            <td class="px-4 py-2 text-right">
+              <div class="flex flex-col items-end">
+                <div class="flex items-center">
+                  <i class="fa-solid fa-calendar-days mr-2"></i>
+                  <span class="text-base">@rp.DateSaisie.ToString("yyyy-MM-dd")</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  [Parameter]
+  public int Id { get; set; }
+  List<BlazorApp.Components.Model.Reponse> reponses;
+  List<string> emailsfs;
+  List<string> namesfs;
+
+  int i;
+  int j;
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    i = 0;
+    j = 0;
+    emailsfs = new List<string>();
+    namesfs = new List<string>();
+
+    reponses = await aoService.GetReponses(Id);
+    foreach (var rp in reponses)
+    {
+      Fournisseur fs = await userService.GetFournisseurbyId(rp.IdFournisseur);
+      emailsfs.Add(fs.EmailId);
+      namesfs.Add(fs.Name);
+    }
+  }
+
+  public string email(string x)
+  {
+    return emailsfs[i];
+    if (x == "add")
+    {
+      i = i + 1;
+    }
+  }
+  public string name()
+  {
+    return namesfs[j];
+    j = j + 1;
+  }
+}

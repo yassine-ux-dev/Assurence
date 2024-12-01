@@ -1,33 +1,33 @@
 @page "/publier"
 
-<div class="flex-container">
+<br><br><br>
+
+<div class="flex min-h-screen flex-col md:flex-row justify-center items-start">
+  <div class="my-4 md:my-0 md:mx-4"></div>
+  <div class="my-4 md:my-0 md:mx-4"></div>
+  <div class="my-4 md:my-0 md:mx-4"></div>
+
+  <!-- Sidebar (Assuming this is a component like <SideBar />) -->
   <SideBar />
+
+  <!-- Main Content -->
   <div class="bg-light-taupe shadow max-w-7xl px-4 py-6 sm:px-6 lg:px-8 form-right">
     <h5 class="text-2xl font-bold tracking-tight text-gray-900">Publier une annonce</h5>
     <hr class="mb-6">
     <form class="publish-form">
-
-      <div class="form-actions" href="">
-        <button type="submit">
-          <a href="/post" style="color: #ffff;text-decoration: none">
-            <i class="fa-solid fa-pen-to-square"></i>
-            Trouver un fournisseur
-          </a>
+      <div class="form-actions">
+        <button type="button" onclick="window.location.href='/post'" style="color: #ffff; text-decoration: none;">
+          <i class="fa-solid fa-pen-to-square"></i>
+          Trouver un fournisseur
         </button>
       </div>
-
-
-
       <div class="form-field">
-
         <p>Vous êtes une entreprise, une association ou un acheteur public, et vous recherchez un professionnel qualifié
           (services, produits, travaux), publiez votre annonce ici ! Après vérification, nous ciblons les entreprises
           compétentes inscrites .
         </p>
-
       </div>
-
-
     </form>
   </div>
+
 </div>

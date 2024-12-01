@@ -1,119 +1,84 @@
 @page "/logup"
-
 @using BlazorApp.Components.Model
-@using Microsoft.EntityFrameworkCore
-@using System.Text.RegularExpressions
-@inject AppDbContext context
+@using BlazorApp.Components.Service
+@inject UserService userService
+@inject AoService aoService
 @inject NavigationManager Navigation
 
+<div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+  style="width: @Inscrire ? '250px' : 'auto'; z-index: 100000; z-20">
+  <div class="relative bg-gray-200 p-5 max-w-lg w-full rounded-lg shadow-lg">
+    <form>
+      <EditForm Model="@ao" OnValidSubmit="HideInscriptionModal">
 
-<EditForm Model="@user" OnValidSubmit="@AddUser" FormName="add-form" method="post">
-  <DataAnnotationsValidator />
-  <div class="signup" style="position: absolute;top: 50%; left: 50%;transform: translate(-50%, -50%);width:400px">
-    <h2 class="title" style=" text-align: center;">𝐂𝐫é𝐞𝐫 𝐮𝐧 𝐜𝐨𝐦𝐩𝐭𝐞</h2>
-
-    <form class="form" novalidate="novalidate" method="post">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- First column -->
-        <div>
-          <!-- Label with InputText -->
-          <div class="mb-4">
-            <label for="signup-name" class="block mb-2">Nom</label>
-            <InputText id="signup-name" class="form-control" placeholder="Nom" @bind-Value="user.Name" type="text"
-              RegularExpression(@"^[a-zA-Z]{2,}$", ErrorMessage="Name must not be a number " ) />
-          </div>
-        </div>
-
-        <!-- Second column -->
-        <div>
-          <!-- Label with Select dropdown -->
-          <div class="mb-4">
-            <label for="signup-name-select" class="block mb-2">Type</label>
-            <select id="signup-name-select" class="form-select w-full" @bind="user.Name">
-              <option value="">Client/Fournisseur</option>
-              <option value="John">Client</option>
-              <option value="Jane">Fournisseur</option>
-
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-
-        <label for="Email">E-mail</label>
-        <InputText class="form-control" placeholder="E-mail" required @bind-Value="user.EmailId" id="email"
-          @oninput="ValidateEmail" type="email" />
-
-        <ValidationMessage For="() =>user.EmailId" />
-
-      </div>
-
-
-      <div class="form-group">
-        <label style="color:red;">@err</label>
-        <br>
-        <label for="signup-email">Mot de Passe</label>
-
-
-        <InputText type="password" id="signup-email" class="form-control" placeholder="Mot de passe" required
-          @bind-Value="user.Password" />
-
-        <ValidationMessage For="() => user.ConfirmPassword" />
-
-      </div>
-      <div class="form-group">
-        <label for="signup-email">Mot de Passe de conformation</label>
-
-
-        <InputText type="password" id="signup-email" class="form-control" placeholder="mot de passe de confirmation"
-          required @bind-Value="user.ConfirmPassword" />
-        <ValidationMessage For="() => user.ConfirmPassword" />
-
-      </div>
-
-      <br>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-40 rounded">
-        Enregistrer
-      </button>
-
-
+        <button type="submit" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 closeBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4">
+            <path
+              d="M13.2328 2.7672C12.9984 2.53282 12.6187 2.53282 12.3843 2.7672L7.99993 7.1516L3.61553 2.7672C3.38115 2.53282 3.00147 2.53282 2.76709 2.7672C2.53271 3.00158 2.53271 3.38126 2.76709 3.61564L7.15149 8.00004L2.76709 12.3844C2.53271 12.6188 2.53271 12.9985 2.76709 13.2329C3.00147 13.4673 3.38115 13.4673 3.61553 13.2329L7.99993 8.84848L12.3843 13.2329C12.6187 13.4673 12.9984 13.4673 13.2328 13.2329C13.4672 12.9985 13.4672 12.6188 13.2328 12.3844L8.84837 8.00004L13.2328 3.61564C13.4672 3.38126 13.4672 3.00158 13.2328 2.7672Z"
+              fill="currentColor"></path>
+          </svg>
+        </button>
+      </EditForm>
     </form>
-  </div>
-</EditForm>
 
+    <button type="submit" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 closeBtn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+        <path
+          d="M13.2328 2.7672C12.9984 2.53282 12.6187 2.53282 12.3843 2.7672L7.99993 7.1516L3.61553 2.7672C3.38115 2.53282 3.00147 2.53282 2.76709 2.7672C2.53271 3.00158 2.53271 3.38126 2.76709 3.61564L7.15149 8.00004L2.76709 12.3844C2.53271 12.6188 2.53271 12.9985 2.76709 13.2329C3.00147 13.4673 3.38115 13.4673 3.61553 13.2329L7.99993 8.84848L12.3843 13.2329C12.6187 13.4673 12.9984 13.4673 13.2328 13.2329C13.4672 12.9985 13.4672 12.6188 13.2328 12.3844L8.84837 8.00004L13.2328 3.61564C13.4672 3.38126 13.4672 3.00158 13.2328 2.7672Z"
+          fill="currentColor"></path>
+      </svg>
+    </button>
+
+
+    <div class="text-center">
+      <div class="text-xl lg:text-2xl font-bold text-secondary-base mb-4">S’inscrire</div>
+      <div class="text-gray-600 mb-6">Bénéficiez de tous les services de Marchés Online</div>
+      <div class="mb-6">
+        <a href="/logupFournisseur">
+          <button
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline">Je
+            suis une société d'assurance</button>
+        </a>
+      </div>
+      <div class="mb-6">
+        <a href="/logupClient">
+          <button
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline">Je
+            suis un Client</button>
+        </a>
+      </div>
+      <div class="text-sm text-gray-600 mt-6">
+        <div class="flex justify-center">
+          <a class="text-primary-base hover:underline" href="/Login">J’ai déjà un compte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @code {
-  [SupplyParameterFromForm]
-  private User user { get; set; } = new();
-  private string ErrorMessage { get; set; }
+  [Parameter]
 
 
-  private string err = "";
+  public int Id { get; set; }
+  private bool Inscrire { get; set; } = false;
 
-  private void ClearForm() => user = new();
+  private Brouillon ao { get; set; } = new Brouillon();
 
-  private void ValidateEmail(ChangeEventArgs e)
+  private void ShowInscriptionModal()
   {
-    user.EmailId = e.Value.ToString();
-
-    // Define custom email validation using regular expression
-    string pattern = @"^[^@\s]+[^@\s]+\.(com|net|org|gov)$";
-    bool isValid = Regex.IsMatch(user.EmailId, pattern);
-
-    ErrorMessage = isValid ? null : "Email must be in the format 'example@gmail.com'";
+    Inscrire = true;
   }
 
-  private async Task AddUser()
+
+
+  private void HideInscriptionModal()
   {
-    if (user.Password == user.ConfirmPassword)
-    {
-      context.Users.Add(user);
-      await context.SaveChangesAsync();
-      err = "";
-    }
-    else
-    {
-      err = "Enter a valide password";
-    }
+    Inscrire = false;
   }
+
+
+
+
 }

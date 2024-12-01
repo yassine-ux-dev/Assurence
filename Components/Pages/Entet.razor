@@ -1,0 +1,99 @@
+07:36
+Vous avez transféré un message
+@page "/entet"
+@using BlazorApp.Components.Service
+@inject AdminService adminService
+
+<h3 class="fw-bold fs-4 mb-3">Tableau de board </h3>
+
+
+
+
+
+<div class="row">
+  <div class="col-12 col-md-4 ">
+    <div class="card border-0">
+      <div class="card-body py-4 bg-gray-100 " style="border-radius:20px;">
+        <h5 class="mb-2 fw-bold">
+          Statistiques des Clients Inscrits
+        </h5>
+        <p class="mb-2 fw-bold">
+          $@cltcash
+        </p>
+        <div class="mb-0">
+          <span class="badge text-success me-2">
+            +@cltprct%
+          </span>
+          <span class=" fw-bold">
+            du mois dernier
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4 ">
+    <div class="card  border-0">
+      <div class="card-body py-4 bg-gray-100 " style=" border-radius:20px;">
+        <h5 class="mb-2 fw-bold">
+          Statistiques des Fournisseurs Inscrits
+        </h5>
+        <p class="mb-2 fw-bold">
+          $@fsrcash
+        </p>
+        <div class="mb-0">
+          <span class="badge text-success me-2">
+            +@fsrprct%
+          </span>
+          <span class="fw-bold">
+            du mois dernier
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4 ">
+    <div class="card border-0 bg-gray-200">
+      <div class="card-body py-4 bg-gray-100 " style=" border-radius:20px;">
+        <h5 class="mb-2 fw-bold">
+          Statistiques
+        </h5>
+        <p class="mb-2 fw-bold">
+          $@cash
+        </p>
+        <div class="mb-0">
+          <span class="badge text-success me-2">
+            +@prct%
+          </span>
+          <span class="fw-bold">
+            du mois dernier
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 class="fw-bold fs-4 my-3">Gains moyens des agents
+</h3>
+
+@code {
+
+  public int cltcash;
+  public int fsrcash;
+  public int cash;
+  public decimal cltprct;
+  public decimal fsrprct;
+  public decimal prct;
+  protected override async Task OnInitializedAsync()
+  {
+
+    cltcash = await adminService.GetCltCash();
+    fsrcash = await adminService.GetFsrCash();
+    cash = cltcash + fsrcash;
+    cltprct = await adminService.GetPrctClt();
+    fsrprct = await adminService.GetPrctFsr();
+    prct = (cltprct + fsrprct) / 2;
+
+
+  }
+
+}

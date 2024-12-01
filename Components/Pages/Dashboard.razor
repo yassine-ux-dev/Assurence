@@ -3,96 +3,229 @@
 @using BlazorApp.Components.Model
 @using BlazorApp.Components.Service
 @using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
 
-<h3 class="text-xl font-bold mb-4">Dashboard</h3>
+<div style="height: 200px;"></div>
 
-@if (aoffres != null && aoffres.Any())
+<div class="flex justify-center items-center">
+  <h1 class="text-xl  mb-4">Dashboard</h1>
+</div>
+@if (role == "Fournisseur" || role == "Admin")
 {
-  <div class="overflow-x-auto">
-    <!-- Search Input Field -->
-    <div class="flex justify-between items-center bg-gray-600 text-white px-4 py-3">
-      <div class="text-white">
-        Result: <span id="resultCount"></span>
+  @if (aoffres != null && aoffres.Any())
+  {
+    <div class="overflow-x-auto mx-auto sm:max-w-screen-lg lg:max-w-screen-xl"> <!-- Search Input Field -->
+      <div class=" flex justify-between items-center text-white px-4 py-3" style="background-color: #064D71;">
+        <div class="text-white">
+          List des appelles d'offfre: <span id="resultCount"></span>
+        </div>
+        <div class="flex-shrink">
+          <input type="text" id="searchInput" class="px-4 py-2 border border-gray-300 rounded-md"
+            placeholder="Rechercher par titre ..." onkeyup=" searchTable()" />
+        </div>
       </div>
-      <div class="flex-shrink">
-        <input type="text" id="searchInput" class="px-4 py-2 border border-gray-300 rounded-md"
-          placeholder="Search by title ..." onkeyup="searchTable()" />
+
+      <!-- Table -->
+      <div class="overflow-x-auto w-70 mx-auto"> <!-- Adjusted width to 70% -->
+        <table class="min-w-full divide-y divide-gray-100">
+
+          <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
+            @foreach (var ao in aoffres)
+            {
+              <tr>
+                <td class="px-4 py-2 text-left">
+                  <a href="@($"/{ao.Id}")" class="flex items-center">
+                    <i class="fas fa-spinner text-lg mr-4"></i>
+                    <b class="text-black">@ao.Titre</b>
+                  </a>
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <div class="flex flex-col items-end">
+                    <div class="flex items-center">
+                      <i class="fa-solid fa-calendar-days mr-2"></i>
+                      <span class="text-base">Publier en @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                      <i class="fa-solid fa-stopwatch mr-2"></i>
+                      <span class="text-base">Termine en @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
     </div>
+  }
+  else
+  {
+    <p class="text-center mt-4">Il n y'a pas des appeles d'offres pour le moment</p>
+  }
+}
+else
+{
+  @if (aoffresencours != null && aoffresencours.Any())
+  {
+    <div class="overflow-x-auto mx-auto sm:max-w-screen-lg lg:max-w-screen-xl"> <!-- Search Input Field -->
+      <div class=" flex justify-between items-center text-white px-4 py-2" style=" background-color: #064D71;">
+        <div class="text-white ">
+          List des appelles d'offfres en cours: <span id="resultCount"></span>
+        </div>
+        <div class="flex-shrink">
+          <input type="text" id="searchInput" class="px-4 py-2 border border-gray-300 rounded-md"
+            placeholder="Rechercher par titre ..." onkeyup=" searchTable()" />
+        </div>
+      </div>
 
-    <!-- Table -->
+      <!-- Table -->
+      <div class="overflow-x-auto w-70 mx-auto">
+        <table class="min-w-full divide-y divide-gray-100">
+
+          <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
+            @foreach (var ao in aoffresencours)
+            {
+              <tr>
+                <td class="px-4 py-2 text-left">
+                  <a href="@($"/{ao.Id}")" class="flex items-center  no-underline">
+                    <i class="fas fa-spinner text-lg mr-4"></i>
+                    <b class="text-black ">@ao.Titre</b>
+                  </a>
+                  @if (ao.IsApprouved == false)
+                  {
+                    <label style="color:#fff;background-color:#71c664;padding:0.25rem;0.6rem;font-size:0.715rem;border-radius:5px" >En attente </label>
+                  }
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <div class="flex flex-col items-end">
+                    <div class="flex items-center">
+                      <i class="fa-solid fa-calendar-days mr-2"></i>
+                      <span class="text-base">Publier en @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                      <i class="fa-solid fa-stopwatch mr-2"></i>
+                      <span class="text-base">Termine en @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+  else
+  {
+    <p class="text-center mt-4">Vous n'avez pas des appele offres en cours</p>
+  }
+  <br>
+  <br>
+  @if (aoffresarchive != null && aoffresarchive.Any())
+  {
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-100">
+      <!-- Search Input Field -->
+      <div class="flex justify-between items-center bg-gray-600 text-white px-4 py-3">
+        <div class="text-white">
+          List des appelles d'offfres archivé: <span id="resultCount"></span>
+        </div>
+        <div class="flex-shrink">
+          <input type="text" id="searchInput" class="px-4 py-2 border border-gray-300 rounded-md"
+            placeholder="Search by title ..." onkeyup="searchTable()" />
+        </div>
+      </div>
 
-        <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
-          @foreach (var ao in aoffres)
-          {
-            <tr>
-              <td class="px-4 py-2 text-left">
-                <a href="@($"/{ao.Id}")" class="flex items-center">
-                  <i class="fas fa-spinner text-lg mr-4"></i>
-                  <b class="text-black">@ao.Titre</b>
-                </a>
-              </td>
-              <td class="px-4 py-2 text-right">
-                <div class="flex flex-col items-end">
-                  <div class="flex items-center">
-                    <i class="fa-solid fa-calendar-days mr-2"></i>
-                    <span class="text-base">Published @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-100">
+
+          <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
+            @foreach (var ao in aoffresarchive)
+            {
+              <tr>
+                <td class="px-4 py-2 text-left">
+                  <a href="@($"/{ao.Id}")" class="flex items-center">
+                    <i class="fas fa-spinner text-lg mr-4"></i>
+                    <b class="text-black">@ao.Titre</b>
+                  </a>
+                  @if (ao.IsApprouved == false)
+                  {
+                    <label style="color:#fff;background-color:#71c664;padding:0.25rem;0.6rem;font-size:0.715rem;border-radius:5px" >En attente </label>
+                  }
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <div class="flex flex-col items-end">
+                    <div class="flex items-center">
+                      <i class="fa-solid fa-calendar-days mr-2"></i>
+                      <span class="text-base">Publier en @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                      <i class="fa-solid fa-stopwatch mr-2"></i>
+                      <span class="text-base">Termine en @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+                    </div>
                   </div>
-                  <div class="flex items-center mt-2">
-                    <i class="fa-solid fa-stopwatch mr-2"></i>
-                    <span class="text-base">Closed @ao.DelaisR.ToString("yyyy-MM-dd")</span>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  }
+  else
+  {
+    <p class="text-center mt-4">Vous n'avez pas des appele offres archivé</p>
+  }
+}
 
-  <script>
-    function searchTable()
-    {
+ <script>
+    function searchTable() {
       var input = document.getElementById('searchInput');
       var filter = input.value.toUpperCase();
       var rows = document.getElementById('tableBody').getElementsByTagName('tr');
 
       let count = 0;
-      for (let i = 0; i < rows.length; i++)
-      {
-        let cells = rows[i].getElementsByTagName('td');
-        let display = false;
-        for (let j = 0; j < cells.length; j++)
-        {
-          let cellContent = cells[j].textContent || cells[j].innerText;
-          if (cellContent.toUpperCase().indexOf(filter) > -1)
-          {
-            display = true;
-            break;
+      for (let i = 0; i < rows.length; i++) {
+        let titleCell = rows[i].getElementsByTagName('td')[0]; // Assuming title is in the first column
+        if (titleCell) {
+          let titleContent = titleCell.textContent || titleCell.innerText;
+          if (titleContent.toUpperCase().indexOf(filter) > -1) {
+            rows[i].style.display = '';
+            count++;
+          } else {
+            rows[i].style.display = 'none';
           }
         }
-        rows[i].style.display = display ? '' : 'none';
-        if (display) count++;
       }
 
       document.getElementById('resultCount').textContent = count;
     }
   </script>
-}
-else
-{
-  <p class="text-center mt-4">No data available.</p>
-}
-
 @code {
   List<AO> aoffres;
+  List<AO> aoffresencours;
+
+  List<AO> aoffresarchive;
+
+  string role;
+  string mail;
 
   protected override async Task OnInitializedAsync()
   {
+    if (!userService.IsAuthenticated())
+    {
+      Navigation.NavigateTo("/login");
+    }
+    role = userService.GetRoleFromCookie();
+    mail = userService.GetEmailIdFromCookie();
     aoffres = await aoService.GetAo();
     aoffres = aoffres.OrderBy(ao => ao.Titre).ToList();
+    aoffresencours = await aoService.GetAoffresencours(mail);
+    aoffresencours = aoffresencours.OrderBy(ao => ao.Titre).ToList();
+    aoffresarchive = await aoService.GetAoffresArchive(mail);
+    aoffresarchive = aoffresarchive.OrderBy(ao => ao.Titre).ToList();
+
   }
+
 }

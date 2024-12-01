@@ -1,0 +1,53 @@
+@page "/Admin"
+@inject UserService userService
+@using BlazorApp.Components.Service
+
+
+@if (userService.IsAuthenticated())
+{
+  if (userService.GetRoleFromCookie() == "Admin")
+  {
+    <div class="mx-auto" style="margin-top: 200px;">
+      <div class="md:flex">
+        <div id="sidebar" class="fixed top-200 left-0 w-72 bg-gray-800 overflow-y-auto bottom-0 overflow-x-hidden pb-40">
+          <div class="container mx-auto">
+            <div class="md:flex">
+              <div id="sidebar "
+                class="fixed top-10 left-0 w-72 bg-gray-800 overflow-y-auto bottom-0 overflow-x-hidden pb-40">
+                <div class="container mx-auto mt-20">
+                  <div class="flex items-center " style="margin-top: 100px;">
+                    <input type="text" class="w-full py-2 px-4 bg-gray-700 text-white rounded focus:outline-none"
+                      placeholder="Search..." />
+                    <button class="bg-gray-700 py-2 px-4 rounded-r"><span class="text-white"><svg class="w-5 h-5"
+                          fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 16l4-4m0 0l-4-4m4 4H4"></path>
+                        </svg></span></button>
+                  </div>
+                </div>
+
+                <ul class="mt-6">
+                  <li class="mt-6"><a href="/TableAppelOffre" class="flex items-center text-white no-underline"><i
+                        class="fa-solid fa-table-list text-white"></i>Tableau de bord</a></li>
+                  <li class="mt-4"><a href="/RequestClient" class="flex items-center text-white no-underline"><i
+                        class="fa-regular fa-user text-white"></i>Request Client</a></li>
+                  <li class="mt-4"><a href="/RequestFournisseur" class="flex items-center text-white no-underline"><i
+                        class="fa-regular fa-user text-white"></i>Request Fournisseur</a></li>
+                  <li class="mt-4"><a href="/Requestrepnse" class="flex items-center text-white no-underline"><i
+                        class="fa-solid fa-envelope text-white "></i>Repuest Repponse</a></li>
+                  <li class="mt-4"><a href="/RequesAppelOffre" class="flex items-center text-white no-underline"><i
+                        class="fa-solid fa-share text-white"></i>Repuest Appel Offre </a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 ml-auto top-10 ">
+          <!-- Content to display -->
+        </div>
+      </div>
+    </div>
+
+  }
+}

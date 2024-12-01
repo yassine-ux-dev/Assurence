@@ -1,0 +1,104 @@
+@page "/reponses/{Id:int}"
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+
+<style>
+  body {
+    background: #a0c5f3;
+  }
+</style>
+<div style="height: 100px;"></div>
+<div class="container mx-auto px-4 py-6">
+
+  <div class="relative w-full overflow-auto">
+    @if (reponses != null && reponses.Any())
+    {
+      <div class="flex justify-between items-center pb-4">
+        <h1 class="text-2xl font-semibold text-white">Offres Recu</h1>
+
+      </div>
+      <table class="w-full caption-bottom text-sm bg-white">
+        <thead class="[&amp;_tr]:border-b">
+          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+              #ID
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+            <th
+              class="h-8 px-8 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+
+            </th>
+          </tr>
+        </thead>
+
+        @foreach (var rp in reponses)
+        {
+          <tbody class="[&amp;_tr:last-child]:border-0">
+
+            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-0"><a href="/reponse/@rp.Id"><b>@addi()</b></a>
+              </td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10"></td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10"></td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10"></td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10"></td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10"></td>
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pr-10">
+              </td>
+
+              <td class="p-2 align-middle [&amp;:has([role=checkbox])]:pl-20">
+                <i class="fa-solid fa-calendar-days mr-2"></i>
+                <span class="text-base">Publier en @rp.DateSaisie.ToString("yyyy-MM-dd")</span>
+
+              </td>
+            </tr>
+            <!-- Repeat for other rows -->
+          </tbody>
+        }
+      </table>
+    }
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public int Id { get; set; }
+  int i = 0;
+
+
+  List<BlazorApp.Components.Model.Reponse> reponses;
+
+  protected override async Task OnInitializedAsync()
+  {
+    reponses = await aoService.GetReponses(Id);
+  }
+  private string addi()
+  {
+    i = i + 1;
+    return i + "";
+  }
+}

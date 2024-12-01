@@ -1,0 +1,128 @@
+@page "/brouillan"
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+
+<br><br><br><br>
+<div class="flex min-h-screen flex-col md:flex-row justify-center items-start">
+
+  <!-- Sidebar (Assuming this is a component like <SideBar />) -->
+  <SideBar />
+  <div class="bg-light-taupe shadow max-w-7xl px-4 py-6 sm:px-6 lg:px-8 form-right">
+
+    @if (aoffres != null && aoffres.Any())
+    {
+      <div>
+        <!-- Search Input Field -->
+        <div class="flex justify-between items-center  text-white px-4 py-3" style="background-color: #064D71;">
+          <div class="text-white">
+            Liste des brouillan : <span id="resultCount"></span>
+          </div>
+          <div class="flex-shrink">
+            <input type="text" id="searchInput" class="px-4 py-2 border border-gray-300 rounded-md"
+              placeholder="Rechercher par titre ..." onkeyup="searchTable()" />
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full divide-y divide-gray-100">
+            <tbody class="bg-white divide-y divide-gray-200 border-2 border-blue-100 p-4" id="tableBody">
+              @foreach (var ao in aoffres)
+              {
+                <tr>
+                  <td class="px-4 py-2 text-left">
+                    <a href="@($"/post/{ao.Id}")" class="flex items-center">
+                      <i class="fas fa-spinner text-lg mr-4"></i>
+                      <b class="text-black">@ao.Titre</b>
+                    </a>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <div class="flex flex-col items-end">
+                      <div class="flex items-center">
+                        <i class="fa-solid fa-calendar-days mr-2"></i>
+                        <span class="text-base">Publié le @ao.DateDemande.ToString("yyyy-MM-dd")</span>
+                      </div>
+                      <div class="flex items-center mt-2">
+                        <i class="fa-solid fa-stopwatch mr-2"></i>
+                        <span class="text-base">Clôture le @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <EditForm Model="@ao" OnValidSubmit="() => Supprimer(ao)" FormName="@getformname(ao.Id)" class="w-full"
+                      method="post">
+                      <div class="flex justify-center">
+                        <button type="submit"
+                          class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          style="height: 35px;">
+                          Supprimer
+                        </button>
+                      </div>
+                    </EditForm>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <script>
+        function searchTable()
+        {
+          var input = document.getElementById('searchInput');
+          var filter = input.value.toUpperCase();
+          var rows = document.getElementById('tableBody').getElementsByTagName('tr');
+
+          let count = 0;
+          for (let i = 0; i < rows.length; i++)
+          {
+            let cells = rows[i].getElementsByTagName('td');
+            let display = false;
+            for (let j = 0; j < cells.length; j++)
+            {
+              let cellContent = cells[j].textContent || cells[j].innerText;
+              if (cellContent.toUpperCase().indexOf(filter) > -1)
+              {
+                display = true;
+                break;
+              }
+            }
+            rows[i].style.display = display ? '' : 'none';
+            if (display) count++;
+          }
+
+          document.getElementById('resultCount').textContent = count;
+        }
+      </script>
+    }
+    else
+    {
+      <p class="text-center mt-4">No data available.</p>
+    }
+  </div>
+</div>
+@code {
+  [Parameter]
+  public int Id { get; set; }
+  List<Brouillon> aoffres;
+
+  protected override async Task OnInitializedAsync()
+  {
+    aoffres = await aoService.Getbrouillans(userService.GetEmailIdFromCookie());
+  }
+  private async Task Supprimer(Brouillon ao)
+  {
+    Console.WriteLine("deleting");
+    await aoService.DelBrouillon(ao);
+    Navigation.NavigateTo("/brouillan");
+  }
+  public string getformname(int x)
+  {
+    return ("delete FORM N°" + x);
+  }
+}

@@ -1,0 +1,230 @@
+@page "/profilefsr"
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject AoService aoService
+@inject UserService userService
+@inject PasswordHandler passhand
+@using System
+
+
+@if (clt != null)
+{
+
+
+
+  <div>
+    <h4 class="q-pl-sm-md" style="margin-left:460px">Profil et connexion</h4>
+    <div class="container mx-auto">
+      <div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
+
+        <div class="row justify-center q-pb-md">
+          <img src="/Hammadi.png" style="height:140px; width:160px" alt="logo">
+          <div class="my-4"></div>
+
+
+
+          <div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+            <EditForm Model="@clt" OnValidSubmit="@ModifierNP" FormName="Posttd1" class="w-full" method="post"
+              style="margin-top: 20px;">
+              <DataAnnotationsValidator />
+              <div action="#" class="w-full md:max-w-sm">
+                <h4>Profil</h4>
+                <label for="prenom" class="block text-sm font-medium mb-2">Nom</label>
+                <InputText type="text" @bind-Value="@Name" required
+                  class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                <ValidationMessage For="() => clt.Name" style="color:red;" />
+
+
+                <div class="mb-4">
+                  <label for="nom" class="block text-sm font-medium mb-2">Phone</label>
+                  <InputText type="text" @bind-Value="@Phone" required
+                    class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                  <ValidationMessage For="() => clt.Phone" style="color:red;" />
+                </div>
+                <button type="submit"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  style="height: 35px;">Modifier</button>
+              </div>
+            </EditForm>
+            <div
+              class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+              <img class=" h-8 w-15 mb-4" src="/CY.png" alt="Logo">
+              <i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+                role="presentation" style="font-size: 1.8rem;">Conseil de confidentialité</i>
+              <h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Mes données
+                sont-elles
+                protégées
+                ?</h4>
+              <p>Vos données sont en sécurité dans notre base de données.</p>
+              <p>Nous avons mis en place des mesures de sécurité robustes pour garantir que vos données sont
+                protégées dans notre base de données,<br> assurant ainsi leur confidentialité et intégrité.
+              </p>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <hr class="my-8 border-t border-gray-900 w-full">
+
+
+        <div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+          <EditForm Model="@clt" OnValidSubmit="@ModifierE" FormName="Posttd2" class="w-full" method="post"
+            style="margin-top: 20px;">
+            <DataAnnotationsValidator />
+            <div action="#" class="w-full md:max-w-sm">
+              <div class="mb-4">
+                <h4>Email</h4>
+                <p>Changer l'adresse email de connexion
+                </p>
+                <label style="color:red;">@err</label>
+                <InputText type="email" @bind-Value="@Email" required
+                  class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+              </div>
+              <ValidationMessage For="() => clt.EmailId" style="color:red;" />
+
+              <button type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                style="height: 35px;">Modifier</button>
+            </div>
+          </EditForm>
+          <div
+            class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+            <img class=" h-8 w-15 mb-4" src="/CY.png" alt="Logo">
+            <i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+              role="presentation" style="font-size: 1.8rem;">Conseil de confidentialité</i>
+            <h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Mes données
+              sont-elles
+              protégées
+              ?</h4>
+            <p>Vos données sont en sécurité dans notre base de données.</p>
+            <p>Nous avons mis en place des mesures de sécurité robustes pour garantir que vos données sont
+              protégées dans notre base de données,<br> assurant ainsi leur confidentialité et intégrité.</p>
+          </div>
+        </div>
+        <hr class="my-8 border-t border-gray-900 w-full">
+
+        <div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+
+          <EditForm Model="@clt" OnValidSubmit="@ModifierPS" FormName="Posttd3" class="w-full" method="post"
+            style="margin-top: 20px;">
+            <DataAnnotationsValidator />
+            <form>
+
+              <div action="#" class="w-full md:max-w-sm">
+                <div class="mb-4">
+                  <h4>Mot de passe</h4>
+
+                  <label style="color:red;">@Err</label>
+                  <label for="passwor" class="block text-sm font-medium mb-2">Nouveau mot de passe</label>
+
+                  <InputText type="Password" placeholder="Nouveau mot de passe" @bind-Value="@Pass" required
+                    class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                </div>
+                <ValidationMessage For="() => clt.Password" style="color:red;" />
+
+                <div class="mb-4">
+                  <label for="conf pass" class="block text-sm font-medium mb-2">mot de passe de
+                    confirmation</label>
+                  <InputText type="password" placeholder="mot de passse de confirmation" @bind-Value="@ConfPass"
+                    class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+
+                </div>
+                <button type="submit"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  style="height: 35px;">Modifier</button>
+
+              </div>
+            </form>
+
+          </EditForm>
+          <div
+            class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+            <img class=" h-8 w-15 mb-4" src="/cad.png" alt="Logo">
+            <i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+              role="presentation" style="font-size: 1.8rem;">Conseil de confidentialité</i>
+            <h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Sécurité
+              ?</h4>
+
+            <p>Utilisez des minuscules/majuscules et des caractères spéciaux pour plus de sécurité.
+
+              Votre mot de passe doit contenir au moins 8 caractères.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+}
+<div class="mb-64"></div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+@code {
+  public Fournisseur? clt { get; set; }
+  [SupplyParameterFromForm]
+  public string? Name { get; set; }
+  [SupplyParameterFromForm]
+  public string? Phone { get; set; }
+  [SupplyParameterFromForm]
+  public string? Email { get; set; }
+  [SupplyParameterFromForm]
+  public string? Pass { get; set; }
+  [SupplyParameterFromForm]
+  public string? ConfPass { get; set; }
+  public string err = string.Empty;
+  public string Err = string.Empty;
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    clt ??= await userService.GetFournisseur(userService.GetEmailIdFromCookie());
+    Name ??= clt.Name;
+    Phone ??= clt.Phone;
+    Email ??= clt.EmailId;
+
+  }
+
+  public async Task ModifierNP()
+  {
+    clt.Name = Name;
+    clt.Phone = Phone;
+    await userService.UpdateFournisseur(clt);
+  }
+
+  public async Task ModifierE()
+  {
+    if (await userService.GetFournisseur(Email) is null)
+    {
+
+      clt.EmailId = Email;
+      await userService.UpdateFournisseur(clt);
+      userService.SetEmailIdInCookie(clt.EmailId);
+      Navigation.NavigateTo("/profile");
+    }
+    else
+    {
+      err = "E-mail exsite déja";
+    }
+  }
+
+  public async Task ModifierPS()
+  {
+    if (Pass == ConfPass)
+    {
+      clt.Password = passhand.HashPassword(Pass);
+      await userService.UpdateFournisseur(clt);
+      Err = string.Empty;
+    }
+    else
+    {
+      Err = "Mot de passe invalide";
+    }
+  }
+}

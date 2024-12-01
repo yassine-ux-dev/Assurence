@@ -1,0 +1,18 @@
+@keyframes moveButton {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.login-interface .moving-button {
+  animation: moveButton 1s infinite;
+}
+a.flex.items-center.no-underline:hover {
+  transform: translateX(8px); /* Move 8px to the right */
+}

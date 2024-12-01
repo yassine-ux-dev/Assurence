@@ -1,72 +1,94 @@
 @page "/Login"
 
-@layout LoginLayout
 @using System.Data.SqlClient
 @using System.Data
 @using System.IO
 @using BlazorApp.Components.Service
 @using Microsoft.EntityFrameworkCore
-@inject AppDbContext context
 @inject NavigationManager Navigation
 @inject UserService userService
+@inject PasswordHandler passHandler
+@using Microsoft.EntityFrameworkCore.Metadata
+@using static Microsoft.EntityFrameworkCore.DbLoggerCategory
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/Reseau.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+
+  .box {
+    position: relative;
+    height: 500px;
+    width: 400px;
+    font-family: Helvetica;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0px 10px;
+    margin-right: 1100px;
+    border-radius: 20px;
+  }
+</style>
+<div class="carousel-inner" style="width:100%; height:100%">
+  <div class="carousel-item active">
+    <svg class="bd-placeholder-img w-full h-screen sm:h-96" style="min-height: 450px;" focusable="false" role="img">
+
+    </svg>
+
+    <!-- Your login form content here -->
+    <EditForm Model="@user" OnValidSubmit="@Log" FormName="add-login" method="post" style="margin-bottom: 200px;">
+      <DataAnnotationsValidator />
 
 
+      <div class="" style="margin-bottom: 400px;margin-top: 10px;">
+        <div class="login-content" style="width: 300px;">
+          <div class="box ">
+            <form action="index.html" method="POST">
+              <img src="/A-logo.png" style="height:190px;" class="mx-auto" alt="logo" />
+              <label style="color:red;">@Err</label>
+              <div class="input-div one">
+                <div class="i">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                  <InputText type="emailId" class="input" @bind-Value="user.EmailId" placeholder="𝙴-𝚖𝚊𝚒𝚕" />
+                  <ValidationMessage For="() => user.EmailId" />
+                </div>
+              </div>
 
 
-<EditForm Model="@user" OnValidSubmit="@Log" FormName="add-form" method="post">
+              <div class="input-div pass">
+                <div class="i">
+                  <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                  <InputText type="password" class="input" @bind-Value="user.Password" id="time"
+                    placeholder="𝙼𝚘𝚝 𝚍𝚎 𝚙𝚊𝚜𝚜𝚎" />
+                  <ValidationMessage For="() => user.Password" />
+                </div>
+              </div>
+              <br>
 
-  <DataAnnotationsValidator />
-
-
-  <div class="container">
-
-    <div class="login-content" style="width: 300px;">
-      <form action=" index.html" method="POST">
-
-        <img src="/A-logo.png" style="height:190px;" mx-auto" alt="logo">
-
-
-        <div class="input-div one">
-          <div class="i">
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="div">
-
-
-
-            <InputText type="emailId" class="input" @bind-Value="user.EmailId" placeholder="𝙴-𝚖𝚊𝚒𝚕" />
-            <ValidationMessage For="() => user.EmailId" />
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-3 py-2 px-32 rounded">
+                Connexion
+              </button>
+              <p class="message flex ml-4 items-center">Non enregistré? <a href="Logup" class="ml-1 underline">Créer un
+                  compte</a></p>
+            </form>
           </div>
         </div>
+      </div>
 
+    </EditForm>
 
-        <div class="input-div pass">
-          <div class="i">
-            <i class="fas fa-lock"></i>
-          </div>
-          <div class="div">
-
-            <InputText type="password" class="input " @bind-Value="user.Password" id="time"
-              placeholder="𝙼𝚘𝚝 𝚍𝚎 𝚙𝚊𝚜𝚜𝚎" />
-            <ValidationMessage For="() => user.Password" />
-
-          </div>
-        </div>
-        <br>
-
-
-
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-32 rounded">
-          Button
-        </button>
-        <p class="message flex items-center">Non enregistré? <a href="Logup" class="ml-1 underline">Créer un compte</a>
-        </p>
-
-
-      </form>
-    </div>
   </div>
-</EditForm>
+</div>
+
+
 <script>
   const inputs = document.querySelectorAll(".input");
 
@@ -96,30 +118,91 @@
 </script>
 
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+@if (inscrire)
+{
+  <Logup />
+
+}
+
 @code {
   [SupplyParameterFromForm]
-
-  private User user { get; set; } = new();
-  private User Auth { get; set; } = new();
+  private Admin user { get; set; } = new();
+  private BlazorApp.Components.Model.Client clt { get; set; } = new();
+  private Fournisseur fsr { get; set; } = new();
   public string Err = string.Empty;
+  private bool inscrire = false;
+
 
   private string? imageSource;
 
 
 
-
+  protected override async Task OnInitializedAsync()
+  { user ??= new(); }
   private async Task Log()
   {
+    clt = await userService.GetClient(user.EmailId);
 
-    Console.WriteLine("Logging" + user.EmailId + user.Name);
-    Auth = await userService.GetUserByMail(user.EmailId);
-    if (Auth.Password == user.Password)
+    fsr = await userService.GetFournisseur(user.EmailId);
+    if (!(clt is null))
     {
-      Navigation.NavigateTo("/Dashboard");
+      if (clt.IsApprouved == true)
+      {
+        if (passHandler.VerifyPassword(user.Password, clt.Password))
+        {
+          userService.SetEmailIdInCookie(user.EmailId);
+          userService.SetRoleInCookie("Client");
+          Navigation.NavigateTo("/");
+        }
+        else
+        {
+          Err = "Invalid Credentials";
+        }
+      }
+      else
+      {
+        Console.WriteLine("ecjndslhbkvhcfjsbknlqcdjbdhvfvbsknlq,mkdkfnjbvhvskcnl,mqxdfnkvbjghsnlq,dnkfbjvsnk,l");
+        Err = "votre compte n'a pas été activé";
+      }
+    }
+    else if (!(fsr is null))
+    {
+      if (fsr.IsApprouved == true)
+      {
+        if (passHandler.VerifyPassword(user.Password, fsr.Password))
+        {
+          userService.SetEmailIdInCookie(user.EmailId);
+          userService.SetRoleInCookie("Fournisseur");
+          Navigation.NavigateTo("/");
+        }
+        else
+        {
+          Err = "Invalid Credentials";
+        }
+      }
+      else
+      {
+        Err = "votre compte n'a pas été activé";
+      }
+    }
+    else if (user.EmailId == "admin@admin.com" && user.Password == "Admin123")
+    {
+      userService.SetEmailIdInCookie(user.EmailId);
+      userService.SetRoleInCookie("Admin");
+
+      Err = string.Empty;
+      Navigation.NavigateTo("/TableAppelOffre");
     }
     else
     {
-      Err = "Invalid Credentials";
+      Err = "E-mail Invalid";
     }
 
   }

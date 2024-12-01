@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.mouseWheelZoom": true,
+  "terminal.integrated.cursorWidth": 1,
+  "terminal.integrated.customGlyphs": false,
+  "terminal.integrated.fontSize": 16
+}

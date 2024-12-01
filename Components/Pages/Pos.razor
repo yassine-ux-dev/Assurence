@@ -1,0 +1,125 @@
+@page "/post"
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject AoService aoService
+@inject UserService userService
+@using System
+<style>
+  .box {
+    position: relative;
+
+    font-family: Helvetica;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0px 10px;
+  }
+
+  .contact-left button {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #fff;
+    gap: 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(270deg, #ff994f, #fa6d86);
+    cursor: pointer;
+
+  }
+
+  .contact-left button img {
+    height: 15px;
+
+  }
+</style>
+
+<div class="flex">
+  <div style="width: 20px" class="timeline-container">
+    <Timeline />
+  </div>
+  <EditForm Model="@ao" OnValidSubmit="@AddAO" FormName="Posttd" class="w-full" method="post">
+    <DataAnnotationsValidator />
+
+    <div class="bg-white  md:mt-20 flex flex-col md:flex-row items-center p-20"
+      style="margin-top: 130px; gap-10 height:100px">
+
+      <div class="contact-left w-full md:w-1/2 md:pr-12" style="padding:0px; padding-left:20px;">
+        <h3 class="text-4xl font-bold text-gray-900 leading-tight mb-4">
+          Demande d'appel d'offre
+        </h3>
+
+        <div class="mb-4">
+          <label>𝘛𝘪𝘵𝘳𝘦</label>
+          <InputText type="text" class="form-control w-full" placeholder="Entrez le titre de votre demande"
+            @bind-Value="ao.Titre" />
+
+        </div>
+
+        <div class="input-box">
+          <label>𝘋𝘦𝘴𝘤𝘳𝘪𝘱𝘵𝘪𝘰𝘯</label>
+          <InputTextArea id="message" class="form-control w-full" @bind-Value="ao.Description" required rows="4"
+            placeholder="Écrivez votre demande ici..."></InputTextArea>
+          <ValidationMessage For="() => ao.Description" />
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>𝘋𝘦𝘭𝘢𝘪𝘴 𝘥𝘦 𝘳𝘦𝘱𝘰𝘯𝘴𝘦</label>
+            <InputDate class="form-control w-full" placeholder="Entrez la date " required @bind-Value="ao.DelaisR" />
+            <ValidationMessage For="() => ao.DelaisR" />
+          </div>
+        </div>
+
+        <div class="input-box address">
+          <label>Budget</label>
+          <InputNumber type="Number" class="form-control w-full" placeholder="Entrez votre budget" required
+            @bind-Value="ao.Budget" />
+          <ValidationMessage For="() => ao.Budget" />
+        </div>
+
+        <div class="input-box address">
+          <label>𝘈𝘥𝘥𝘳𝘦𝘴𝘴</label>
+          <InputText type="text" class="form-control w-full" placeholder="Entrez l'adresse postale" required
+            @bind-Value="ao.Adress" />
+          <ValidationMessage For="() => ao.Adress" />
+        </div>
+
+        <br>
+
+        <button type="submit">Suivant<img src="/arrow_icon.png" alt=""></button>
+      </div>
+
+      <div class="hammas ">
+        <img src="/hero.png" alt="Image" class="w-[500] rounded-lg " style="height: 500px;margin-left:80px ">
+      </div>
+    </div>
+  </EditForm>
+
+
+</div>
+
+
+
+@code {
+  [SupplyParameterFromForm]
+
+  private Brouillon ao { get; set; } = new Brouillon();
+
+  private void ClearForm() => ao = new Brouillon();
+
+  private async Task AddAO()
+  {
+    Console.WriteLine("adding " + ao.Adress);
+    ao.DateDemande = DateTime.Now;
+    ao.EmailA = userService.GetEmailIdFromCookie();
+
+    await aoService.AddBr(ao);
+
+    Navigation.NavigateTo($"/pf/{ao.Id}");
+
+  }
+
+}

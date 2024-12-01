@@ -1,0 +1,192 @@
+@page "/RequesAppelOffre"
+@inject UserService userService
+
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+@using System
+@inject UserService userService
+
+@inject AdminService adminService
+@inject NavigationManager Navigation
+@inject MailService mailService
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar With Bootstrap</title>
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="Add.css">
+
+</head>
+@if (userService.IsAuthenticated())
+{
+  if (userService.GetRoleFromCookie() == "Admin")
+  {
+<body>
+
+  <div class="wrapper">
+  <aside id="sidebar">
+          <SideAdmin/>
+        </aside>
+    <div class="main">
+      <nav class="navbar navbar-expand px-4 py-3">
+        <form action="#" class="d-none d-sm-inline-block">
+
+        </form>
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                <img src="/account.png" class="avatar img-fluid" alt="">
+              </a>
+              <div class="dropdown-menu dropdown-menu-end rounded">
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="content px-3 py-4">
+        <div class="container-fluid">
+          <div class="mb-3">
+            <Entet/>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr class="highlight">
+
+                      <th class="px-1 py-1">ID</th>
+                      <th class="px-5 py-1">Titre</th>
+                      <th class="px-20 py-1">Description</th>
+                      <th class="px-5 py-1">DateDemande</th>
+                      <th class="px-5 py-1">Adress</th>
+                      <th class="px-4 py-1">Email</th>
+                      <th class="px-1 py-1">Budget</th>
+                    
+                    
+
+                      <th class="px-20 py-1" style="width: 20px;">Demande</th>
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    @if (offres != null)
+                    {
+                      @foreach (var ao in offres)
+                      {
+                        <tr>
+                          <td class="border px-1 py-2">@ao.Id</td>
+                          <td class="border px-5 py-2">@ao.Titre</td>
+                          <td class="border px-20 py-2">@ao.Description</td>
+                          <td class="border px-5 py-2">@ao.DateDemande</td>
+                          <td class="border px-5 py-2">@ao.Adress</td>
+                          <td class="border px-4 py-2">@ao.EmailA</td>
+                          <td class="border px-1 py-2">@ao.Budget</td>
+                          <td class="border px-20 py-2">
+
+                            <div style="display: flex; width: 150px; ">
+                              <EditForm Model="@ao" OnValidSubmit="() => Accept(ao)" FormName="@getformname("acpt",ao.Id)" >
+                                <button type="submit"
+                                  class=" btnet border-2 border-yellow-400 bg-white text-yellow-400 w-[4] py-1 rounded-full hover:to-purple-600 transition-all duration-300"
+                                  style="font-size: 13px;">
+                                  Accepter</button>
+                              </EditForm>
+                              <EditForm Model="@ao" OnValidSubmit="() => Refuse(ao)" FormName="@getformname("rfs",ao.Id)">
+                                <button type="submit"
+                                  class=" btnet border-2 border-red-400 bg-white text-red-400 w-[4] py-1 rounded-full hover:to-purple-600 transition-all duration-300"
+                                  style="font-size: 13px;">
+                                  Refuser</button>
+                              </EditForm>
+
+
+                            </div>
+                          </td>
+
+
+
+
+                        </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+  
+</body>
+}}
+<script>
+  const hamBurger = document.querySelector(".toggle-btn");
+
+  hamBurger.addEventListener("click", function ()
+  {
+    document.querySelector("#sidebar").classList.toggle("expand");
+  });</script>
+
+
+
+@code {
+    private BlazorApp.Components.Model.AO ao { get; set; }
+    private BlazorApp.Components.Model.Notification nfc { get; set; }
+
+    private List<BlazorApp.Components.Model.AO> offres { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        offres = await adminService.GetAoffres();
+
+        // If the 'clt' object is not initialized yet, retrieve the client by email
+
+
+    }
+    public async Task Accept(BlazorApp.Components.Model.AO ao)
+    {
+        int x=ao.Id;
+        nfc = new();
+        nfc.Email = ao.EmailA;
+        nfc.Nfc = "Votre appele offre '" + ao.Titre + "' à été accepter.";
+        nfc.Date = DateTime.Now;
+        await adminService.AddMessage(nfc);
+        ao.IsApprouved = true;
+        await adminService.UpdateAoffre(ao);
+        string retr = mailService.SendEmail(ao.EmailA, "Votre appele offre '" + ao.Titre + "' à été accepter.");
+        Navigation.NavigateTo("/RequesAppelOffre");
+    }
+    public async Task Refuse(BlazorApp.Components.Model.AO ao)
+    {
+        int x=ao.Id;
+        nfc = new();
+        nfc.Email = ao.EmailA;
+        nfc.Nfc = "Votre appele offre '" + ao.Titre + "' à été refuser car il ne respecte pas nos regle.";
+        nfc.Date = DateTime.Now;
+        await adminService.AddMessage(nfc);
+        await adminService.DelAo(ao);
+        string retr = mailService.SendEmail(ao.EmailA, "Votre appele offre '" + ao.Titre + "' à été refuser car il ne respecte pas nos regle.");
+        Navigation.NavigateTo("/RequesAppelOffre");
+    }
+
+    public string getformname(string ch,int x){
+      return (ch +" FORM N°"+x);
+    }
+
+}

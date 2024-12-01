@@ -5,16 +5,64 @@
       "PackagePath": "staticwebassets\\BlazorApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\A .png",
+      "PackagePath": "staticwebassets\\A .png"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\A-Logo.png",
       "PackagePath": "staticwebassets\\A-Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Acc.png",
+      "PackagePath": "staticwebassets\\Acc.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Add.css",
+      "PackagePath": "staticwebassets\\Add.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Appell.png",
+      "PackagePath": "staticwebassets\\Appell.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Blog.css",
+      "PackagePath": "staticwebassets\\Blog.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\CY.png",
+      "PackagePath": "staticwebassets\\CY.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Cancel.png",
+      "PackagePath": "staticwebassets\\Cancel.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\City.png",
+      "PackagePath": "staticwebassets\\City.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Click.png",
+      "PackagePath": "staticwebassets\\Click.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Couverture.jpg",
+      "PackagePath": "staticwebassets\\Couverture.jpg"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Dashboard.css",
       "PackagePath": "staticwebassets\\Dashboard.css"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\EM.png",
+      "PackagePath": "staticwebassets\\EM.png"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Ha.css",
       "PackagePath": "staticwebassets\\Ha.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Hammadi.png",
+      "PackagePath": "staticwebassets\\Hammadi.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Inscrire.jpg",
@@ -37,8 +85,20 @@
       "PackagePath": "staticwebassets\\Lol.css"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Mail.png",
+      "PackagePath": "staticwebassets\\Mail.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Navi.css",
+      "PackagePath": "staticwebassets\\Navi.css"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\New.css",
       "PackagePath": "staticwebassets\\New.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\P2.png",
+      "PackagePath": "staticwebassets\\P2.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Post.css",
@@ -49,28 +109,52 @@
       "PackagePath": "staticwebassets\\Pub.png"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Q.jpg",
+      "PackagePath": "staticwebassets\\Q.jpg"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\QUESTION.jpeg",
       "PackagePath": "staticwebassets\\QUESTION.jpeg"
     },
     {
-      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\T.png",
-      "PackagePath": "staticwebassets\\T.png"
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Reseau.jpg",
+      "PackagePath": "staticwebassets\\Reseau.jpg"
     },
     {
-      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Time.css",
-      "PackagePath": "staticwebassets\\Time.css"
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Site.css",
+      "PackagePath": "staticwebassets\\Site.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Styl.css",
+      "PackagePath": "staticwebassets\\Styl.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Target.png",
+      "PackagePath": "staticwebassets\\Target.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Time.png",
+      "PackagePath": "staticwebassets\\Time.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\U.png",
+      "PackagePath": "staticwebassets\\U.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\V.png",
       "PackagePath": "staticwebassets\\V.png"
     },
     {
-      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\W.png",
-      "PackagePath": "staticwebassets\\W.png"
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\Web.png",
+      "PackagePath": "staticwebassets\\Web.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\arrow_icon.png",
+      "PackagePath": "staticwebassets\\arrow_icon.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\assureur-credit.jpg",
@@ -89,6 +173,18 @@
       "PackagePath": "staticwebassets\\build.jpg"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\cad.png",
+      "PackagePath": "staticwebassets\\cad.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\checklist.png",
+      "PackagePath": "staticwebassets\\checklist.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\email.png",
+      "PackagePath": "staticwebassets\\email.png"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
@@ -97,16 +193,72 @@
       "PackagePath": "staticwebassets\\footer.css"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\formul.png",
+      "PackagePath": "staticwebassets\\formul.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\hero.png",
+      "PackagePath": "staticwebassets\\hero.png"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\login.css",
       "PackagePath": "staticwebassets\\login.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\message.png",
+      "PackagePath": "staticwebassets\\message.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\notification.png",
+      "PackagePath": "staticwebassets\\notification.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\numero-2.png",
+      "PackagePath": "staticwebassets\\numero-2.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\numero-quatre.png",
+      "PackagePath": "staticwebassets\\numero-quatre.png"
     },
     {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\publier.css",
       "PackagePath": "staticwebassets\\publier.css"
     },
     {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\right_img.png",
+      "PackagePath": "staticwebassets\\right_img.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\rond.png",
+      "PackagePath": "staticwebassets\\rond.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\sideMessage.css",
+      "PackagePath": "staticwebassets\\sideMessage.css"
+    },
+    {
       "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\sidebar.css",
       "PackagePath": "staticwebassets\\sidebar.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\titi.css",
+      "PackagePath": "staticwebassets\\titi.css"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\trois.png",
+      "PackagePath": "staticwebassets\\trois.png"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\uploads\\Rapport Ao.docx",
+      "PackagePath": "staticwebassets\\uploads\\Rapport Ao.docx"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\uploads\\assureur-credit.jpg",
+      "PackagePath": "staticwebassets\\uploads\\assureur-credit.jpg"
+    },
+    {
+      "Id": "C:\\Users\\MSI\\Desktop\\NAV\\BlazorApp\\wwwroot\\uploads\\brouillons.docx",
+      "PackagePath": "staticwebassets\\uploads\\brouillons.docx"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorApp.Microsoft.AspNetCore.StaticWebAssets.props",

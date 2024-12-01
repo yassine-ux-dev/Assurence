@@ -1,0 +1,126 @@
+@* <EditForm Model="@clt" OnValidSubmit="@Modifier" FormName="Posttd" class="w-full" method="post"
+style="margin-top: 20px;">
+<DataAnnotationsValidator />
+
+<div style="background-color:rgb(248, 249, 250); ">
+<h4 class="q-pl-sm-md" style="margin-left:460px">Profil et connexion</h4>
+<div class="container mx-auto">
+<div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
+<div class="row justify-center q-pb-md">
+<img src="/Hammadi.png" style="height:140px; width:160px" alt="logo">
+<div class="my-4"></div>
+<div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+<div class="mb-4">
+<h4>Profil</h4>
+<label for="prenom" class="block text-sm font-medium mb-2">Nom</label>
+<InputText type="text" id="prenom" name="name" @bind-Value="@Name"
+class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+</div>
+<div class="mb-4">
+<label for="nom" class="block text-sm font-medium mb-2">Phone</label>
+<InputText type="text" @bind-Value="@Phone"
+class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+</div>
+
+<div
+class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+<img class=" h-8 w-15 mb-4" src="/CY.png" alt="Logo">
+<i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+role="presentation" style="font-size: 1.8rem;">privacy_tip</i>
+<h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Mes données sont-elles
+protégées
+?</h4>
+<p>Ces données ne sont visibles que par les membres de votre réseau J360.</p>
+<p>J360 ne communique aucune donnée personnelle à des tiers.</p>
+</div>
+</div>
+
+<button type="submit"
+class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+style="height: 35px;">Modifier</button>
+</div>
+
+<div
+class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+<img class=" h-8 w-15 mb-4" src="/CY.png" alt="Logo">
+<i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+role="presentation" style="font-size: 1.8rem;">privacy_tip</i>
+<h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Mes données sont-elles
+protégées
+?</h4>
+<p>Ces données ne sont visibles que par les membres de votre réseau J360.</p>
+<p>J360 ne communique aucune donnée personnelle à des tiers.</p>
+</div>
+</div>
+
+<hr class="my-8 border-t border-gray-900 w-full">
+
+
+<div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+
+<div class="mb-4">
+<h4>Email</h4>
+<p>Changer l'adresse email de connexion
+</p>
+<InputText type="email" @bind-Value="@Email"
+class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+</div>
+<button type="submit"
+class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+style="height: 35px;">Modifier</button>
+<div
+class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+<img class=" h-8 w-15 mb-4" src="/CY.png" alt="Logo">
+<i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+role="presentation" style="font-size: 1.8rem;">privacy_tip</i>
+<h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Mes données sont-elles
+protégées
+?</h4>
+<p>Ces données ne sont visibles que par les membres de votre réseau J360.</p>
+<p>J360 ne communique aucune donnée personnelle à des tiers.</p>
+</div>
+</div>
+<hr class="my-8 border-t border-gray-900 w-full">
+
+
+<div class="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-20 md:w-3/4 md:mt-8">
+<div action="#" class="w-full md:max-w-sm">
+<div class="mb-4">
+<h4>Mot de passe</h4>
+<p>Changer l'adresse email de connexion
+</p>
+<InputText type="Password" placeholder="Mot de passe" @bind-Value="@Pass"
+class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+</div>
+<div class="mb-4">
+<label for="nom" class="block text-sm font-medium mb-2">mot de passe de confirmation</label>
+<InputText type="password" placeholder="mot de passse de confirmation" @bind-Value="@ConfPass"
+class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+</div>
+<button type="submit"
+class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+style="height: 35px;">Modifier</button>
+
+</div>
+<div
+class="q-card__section q-card__section--vert column md:w-1/2 md:ml-8 bg-gray-100 p-4 border border-gray-300 rounded-md">
+<img class=" h-8 w-15 mb-4" src="/cad.png" alt="Logo">
+<i class="q-icon text-primary notranslate material-icons-outlined q-mb-sm" aria-hidden="true"
+role="presentation" style="font-size: 1.8rem;">privacy_tip</i>
+<h4 class="q-mt-sm" data-sider-select-id="7ed59484-da6c-4ea4-9953-42ea97978950">Sécurité
+?</h4>
+
+<p>Utilisez des minuscules/majuscules et des caractères spéciaux pour plus de sécurité.
+
+Votre mot de passe doit contenir au moins 8 caractères.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</EditForm>
+
+}
+<div class="mb-64"></div> *@

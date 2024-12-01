@@ -1,0 +1,114 @@
+@page "/pring"
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+
+  <title>Pricing component</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19" rel="stylesheet">
+</head>
+<br>
+<br>
+
+
+<body class="bg-gray-100 font-sans">
+  <header class="text-gray-500 my-12 text-center">
+    <h1 class="text-3xl font-bold">Our Pricing</h1>
+    <div class="flex justify-center items-center my-4">
+      <label class="mr-4">Annually</label>
+      <div class="relative">
+        <input type="checkbox" class="hidden checkbox" id="checkbox" />
+        <label class="toggle-btn" for="checkbox">
+          <div class="sub bg-gradient-to-r from-indigo-500 to-purple-500">
+            <div class="circle bg-white"></div>
+          </div>
+        </label>
+      </div>
+      <label>Monthly</label>
+    </div>
+  </header>
+  <div class="flex justify-center items-center">
+    <div class="cards flex flex-wrap justify-center">
+      <div class="card shadow bg-white  w-92 m-4" style="border-radius: 2rem;">
+        <ul class=" py-4 px-12">
+          <li class="pack font-bold text-lg mb-2"><b>Free</b></li>
+          <li id="basic" class="price text-3xl text-gray-600 mb-2 border-b border-gray-200 pb-2">
+            <span class="inline-block mr-1">$0</span>
+            <h4 class="inline">/month</h4>
+          </li>
+          <li class="text-sm text-gray-500 mt-20 mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Candidatures des agences membres
+          </li>
+
+          <li class="text-sm text-gray-500 mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Alertes d'enchères en temps réel
+          </li>
+          <li><button
+              class="btn w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-2 rounded mt-8">Sign
+              Up</button></li>
+        </ul>
+      </div>
+      <div class="card shadow bg-gradient-to-r from-indigo-500 to-purple-500  w-98 m-8"
+        style="border-radius: 2rem;height:500px">
+        <ul class="py-4 px-12"> <!-- Increased py-6 for more height -->
+          <li class="pack font-bold text-lg mb-2 text-white"></li>
+
+          <li id="basic" class="price text-3xl text-white mb-2 border-b border-gray-200 pb-2">
+            <span class="inline-block mr-1 text-white">$80</span>
+            <h4 class="inline">/12month</h4>
+          </li>
+          <li class="text-sm text-white mt-20 mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Candidatures des agences membres
+          </li>
+
+          <li class="text-sm text-white mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Alertes d'enchères en temps réel
+          </li>
+
+
+
+
+
+
+          <li class="text-sm text-white mb-2 mt-5"></li>
+          <li><button class="w-full bg-white text-indigo-500 py-2 rounded mt-9">Sign Up</button></li>
+        </ul>
+      </div>
+
+      <div class="card shadow bg-white  w-92 m-4" style="border-radius: 2rem;">
+        <ul class="py-4 px-12">
+          <li class="pack font-bold text-lg mb-2"></li>
+          <li id="basic" class="price text-3xl text-gray-600 mb-2 border-b border-gray-200 pb-2">
+            <span class="inline-block mr-1">$50</span>
+            <h4 class="inline">/6month</h4>
+          </li>
+
+          <li class="text-sm text-gray-500 mt-20 mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Candidatures des agences membres
+          </li>
+
+          <li class="text-sm text-gray-500 mb-2 flex items-center">
+            <img src="/Acc.png" class="mr-2" alt="Acc image">
+            Alertes d'enchères en temps réel
+          </li>
+          <li><button
+              class="btn w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-2 rounded mt-9">Sign
+              Up</button></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

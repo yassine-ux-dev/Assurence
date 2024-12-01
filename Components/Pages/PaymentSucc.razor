@@ -1,0 +1,101 @@
+@page "/payment-success"
+@using Stripe
+@using Stripe.Checkout
+@inject UserService userService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+</head>
+
+
+<div class="card bg-white p-16 rounded-lg ">
+  <div class="rounded-full bg-gray-100 w-56 h-56 flex items-center justify-center mx-auto">
+    <i class="checkmark text-green-500 text-6xl">✓</i>
+  </div>
+  <div class="items-center justify-center mx-auto mt-5 ">
+    <h1 class="text-green-500 font-bold text-4xl mb-2 text-center ">Success</h1>
+    <div class="ml-5 text-center ">
+      <p>Merci pour votre paiement de @Price $.</p>
+      <p>Nous avons reçu votre paiement et nous apprécions votre confiance.</p>
+
+      <p>Merci encore d'avoir choisi notre plateforme.</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+@code {
+  [SupplyParameterFromQuery(Name = "session-id")]
+  public string CheckoutSessionId { get; set; }
+  [Parameter]
+  [SupplyParameterFromQuery(Name = "unit_amount_decimal")]
+  public int UnitAmount { get; set; }
+
+
+  private BlazorApp.Components.Model.Reponse Rp { get; set; } = new BlazorApp.Components.Model.Reponse();
+  public BlazorApp.Components.Model.Client? clt { get; set; }
+  public BlazorApp.Components.Model.Fournisseur? fsr { get; set; }
+
+
+  private string _customerName = string.Empty;
+  private string _customerEmail = string.Empty;
+  private decimal Price => UnitAmount / 100m;
+
+
+  protected override async Task OnInitializedAsync()
+  {
+
+
+    var sessionService = new SessionService();
+    var session = await sessionService.GetAsync(CheckoutSessionId);
+
+    _customerName = session.CustomerDetails.Name;
+    _customerEmail = session.CustomerDetails.Email;
+
+
+    Console.WriteLine("payment succes");
+    if (await userService.GetClient(_customerEmail) != null)
+    {
+      clt = await userService.GetClient(_customerEmail);
+      if (Price == 10)
+      {
+        clt.Payment = DateTime.Today.AddDays(30);
+      }
+      else if (Price == 50)
+      {
+        clt.Payment = DateTime.Today.AddDays(182);
+      }
+      else if (Price == 80)
+      {
+        clt.Payment = DateTime.Today.AddDays(365);
+      }
+      clt.DatePayment = DateTime.Today;
+      await userService.UpdateClient(clt);
+
+    }
+    else if (await userService.GetFournisseur(_customerEmail) != null)
+    {
+      fsr = await userService.GetFournisseur(_customerEmail);
+      if (Price == 10)
+      {
+        fsr.Payment = DateTime.Today.AddDays(30);
+      }
+      else if (Price == 50)
+      {
+        fsr.Payment = DateTime.Today.AddDays(182);
+      }
+      else if (Price == 80)
+      {
+        fsr.Payment = DateTime.Today.AddDays(365);
+      }
+      fsr.DatePayment = DateTime.Today;
+
+      await userService.UpdateFournisseur(fsr);
+
+    }
+  }
+}

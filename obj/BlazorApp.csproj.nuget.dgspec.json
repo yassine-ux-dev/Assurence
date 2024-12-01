@@ -45,9 +45,33 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net": {
+              "target": "Package",
+              "version": "[0.1.0, )"
+            },
+            "BlazorInputFile": {
+              "target": "Package",
+              "version": "[0.2.0, )"
+            },
+            "Blazored.Modal": {
+              "target": "Package",
+              "version": "[7.3.1, )"
+            },
+            "Blazored.Toast": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "CurrieTechnologies.Razor.SweetAlert2": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[11.9.0, )"
+            },
+            "Microsoft.AspNetCore.Components.Web": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -70,6 +94,26 @@
             "Microsoft.Extensions.Logging.Console": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.31.5, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[44.7.0, )"
+            },
+            "Syncfusion.Blazor.Inputs": {
+              "target": "Package",
+              "version": "[25.2.3, )"
+            },
+            "Syncfusion.Blazor.Notifications": {
+              "target": "Package",
+              "version": "[25.1.41, )"
+            },
+            "Syncfusion.Blazor.Themes": {
+              "target": "Package",
+              "version": "[25.2.3, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",

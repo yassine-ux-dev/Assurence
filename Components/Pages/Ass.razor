@@ -1,0 +1,135 @@
+@page "/{Id:int}"
+@using System
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+
+@inject NavigationManager Navigation
+@inject UserService userService
+@if (ao != null)
+{
+  <div style="height:100px"></div>
+  <div class="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 dark:bg-gray-900 dark:text-gray-200">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col items-start space-y-2">
+        <a href="/Dashboard" title="< Back to results"
+          class="backToResults mets-command-link text-blue-500 hover:underline">&lt; Back to results</a>
+        <h1 class="text-2xl font-bold">@ao.Titre</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="w-8 h-8 text-primary">
+          <path
+            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+          </path>
+        </svg>
+        <span class="text-lg font-semibold"></span>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-xl font-bold mb-4">Budget</h2>
+        <ul class="space-y-2">
+          <li class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="w-5 h-5 text-primary">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+            <span>@ao.Budget TND</span>
+          </li>
+
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">Date de Demande:</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span>Date de Demande:</span>
+            <span class="font-semibold">@ao.DateDemande.ToString("yyyy-MM-dd")</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Délais de Réalisation:</span>
+            <span class="font-semibold"> @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Description</h2>
+      <div class="space-y-2">
+        @ao.Description
+      </div>
+    </div>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Contacte</h2>
+      <div class="space-y-2">
+        <p>Email : @ao.EmailA</p>
+        <p>Adresse : @ao.Adress</p>
+
+
+      </div>
+    </div>
+    @if (userService.IsAuthenticated())
+    {
+      if (userService.GetRoleFromCookie() == "Fournisseur")
+      {
+        <a href="/Send/@Id">
+          <button type="submit" data-twe-ripple-init data-twe-ripple-color="light"
+            class="me-3 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+            Envoyer un offre
+          </button>
+        </a>
+      }
+    }
+    @if (userService.IsAuthenticated())
+    {
+      if (userService.GetRoleFromCookie() == "Client")
+      {
+        <div class="form-actions">
+          <a href="/reponses/@Id" style="color: #3b3a3a; text-decoration: none;">
+            Voir les reponse de ce appele offre
+          </a>
+        </div>
+      }
+    }
+  </div>
+
+}
+
+@code {
+
+
+
+  [Parameter]
+  public int Id { get; set; }
+
+
+
+  public AO ao;
+  public readonly struct ParameterView;
+
+
+  private Fournisseur fsr { get; set; } = new();
+
+  private bool Post = false;
+
+
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    // Load data asynchronously
+    ao = await aoService.GetaoffreById(Id);
+  }
+
+
+
+
+
+
+
+
+}

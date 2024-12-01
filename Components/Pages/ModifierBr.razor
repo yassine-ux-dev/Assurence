@@ -1,0 +1,97 @@
+@* @page "/modifierao/{Id:int}"
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@inject AppDbContext context
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject AoService aoService
+@inject UserService userService
+@using System
+
+<br><br><br><br>
+
+@if (ao != null)
+{
+<EditForm Model="@ao" OnValidSubmit="@Modifier" FormName="Posttd" class="w-full" method="post">
+<DataAnnotationsValidator />
+
+<div class="bg-white rounded-lg shadow-md mt-6 md:mt-0 flex flex-col md:flex-row items-center p-6">
+<div class="w-full md:w-1/2 md:pr-12">
+<h3 class="text-4xl font-bold text-gray-900 leading-tight mb-4">
+Modification d'appel d'offre
+</h3>
+
+<div class="mb-4">
+<label>𝘛𝘪𝘵𝘳𝘦</label>
+<InputText type="text" class="form-control w-full" placeholder="Enter full name" required
+@bind-Value="ao.Titre" />
+<ValidationMessage For="() => ao.Titre" />
+</div>
+<div class="input-box">
+<label>𝘋𝘦𝘴𝘤𝘳𝘪𝘱𝘵𝘪𝘰𝘯</label>
+<InputTextArea id="message" class="form-control w-full" @bind-Value="ao.Description" Required rows="4"
+placeholder="Write your thoughts here..."></InputTextArea>
+<ValidationMessage For="() => ao.Description" />
+
+</div>
+<div class="column">
+<div class="input-box">
+<label>𝘋𝘦𝘭𝘢𝘪𝘴 𝘥𝘦 𝘳𝘦𝘱𝘰𝘯𝘴𝘦</label>
+<InputDate class="form-control w-full" placeholder="Enter birth date" required @bind-Value="ao.DelaisR" />
+<ValidationMessage For="() => ao.DelaisR" />
+
+</div>
+</div>
+<div class="input-box address">
+<label>Budget</label>
+<InputNumber type="Number" class="form-control w-full" placeholder="Enter street address" required
+@bind-Value="ao.Budget" />
+<ValidationMessage For="() => ao.Budget" />
+
+</div>
+<div class="input-box address">
+<label>𝘈𝘥𝘥𝘳𝘦𝘴𝘴</label>
+<InputText type="text" class="form-control w-full" placeholder="Enter street address" required
+@bind-Value="ao.Adress" />
+<ValidationMessage For="() => ao.Adress" />
+
+</div>
+
+<br>
+<div class="flex justify-end mt-6 md:mt-0">
+<button type="submit"
+class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+style="height: 35px;">Suivant</button>
+</div>
+</div>
+
+<div class="w-full md:w-1/2">
+<img src="/Appell.png" alt="Image" class="w-full h-auto rounded-lg shadow-md">
+</div>
+</div>
+</EditForm>
+}
+
+
+
+@code {
+[Parameter]
+public int Id { get; set; }
+[SupplyParameterFromForm]
+public Brouillon? ao { get; set; }
+
+protected override async Task OnInitializedAsync()
+{
+ao ??= await aoService.GetBrbyId(Id);
+}
+
+private async Task Modifier()
+{
+ao.Id = Id;
+ao.EmailA = userService.GetEmailIdFromCookie();
+ao.DateDemande = DateTime.Now;
+await aoService.UpdateBr(ao);
+Navigation.NavigateTo("/pf/" + ao.Id);
+}
+
+} *@

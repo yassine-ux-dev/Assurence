@@ -1,0 +1,118 @@
+@page "/Contacterlequipe"
+
+@using BlazorApp.Components.Service
+@inject UserService userService
+@using BlazorApp.Components.Model
+@inject AppDbContext context
+@inject AoService aoService
+<div style="height: 50px;"></div>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex gap-3 items-center mb-6">
+    <img src="/notification.png" class="mr-2">
+    <p class="text-2xl tracking-tight text-gray-900">Message</p>
+  </div>
+  <hr class="mb-6">
+
+  <div class="flex w-full justify-start">
+    <div class="w-1/4">
+      <ul class="nav flex flex-col items-start">
+        <li>
+          <a href="/Mesrelations" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-box mr-2"></i>
+            <span>Mes relations</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Mesnotifications" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-bell mr-2"></i>
+            <span >Mes notifications</span>
+          </a>
+        </li>
+        <li>
+          <a href="/Contacterlequipe" class="nav-item flex gap-2 items-center no-underline">
+            <i class="fa-solid fa-message mr-2"></i>
+            <span style="color:blue">Contacter l'équipe</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w-3/4">
+      <div class="bg-light-taupe shadow p-4 rounded-lg">
+        <div class="flex items-center mb-4">
+          <i class="fa-solid fa-bell mr-2"></i>
+          <p class="text-2xl tracking-tight text-gray-900">Contact l'equipe</p>
+        </div>
+        <hr class="mb-4">
+
+        <EditForm Model="@ao" OnValidSubmit="@AddAO" FormName="Posttd" class="w-full" method="post">
+          <DataAnnotationsValidator />
+
+
+
+          <div class="contact-left w-full md:w-1/2 md:pr-12" style="padding:0px; padding-left:20px;">
+
+
+            <div class="mb-4">
+              <label></label>
+              <InputText type="text"
+                class="w-[800px] h-[20px] border border-gray-300 outline-none pl-[25px] font-medium text-gray-600 rounded-full"
+                placeholder="Enter full name" required @bind-Value="ao.FirstName" />
+            </div>
+
+            <div class="input-box address mb-4">
+              <label></label>
+              <InputText type="text"
+                class="w-[800px] h-[20px] border border-gray-300 outline-none pl-[25px] font-medium text-gray-600 rounded-full"
+                placeholder="Enter street address" required @bind-Value="ao.Email" />
+              <ValidationMessage For="() => ao.Email" />
+            </div>
+
+            <div class="input-box">
+              <label></label>
+              <InputTextArea id="message"
+                class="h-[140px] pt-[15px] w-[800px] border border-gray-300 rounded-[20px] outline-none px-6 text-gray-600 placeholder-gray-400 focus:border-300"
+                @bind-Value="ao.Comment" required rows="4" placeholder="Write your thoughts here..."></InputTextArea>
+              <ValidationMessage For="() => ao.Comment" />
+            </div>
+
+
+            <br>
+            <button type="submit"
+              class="flex items-center px-3 py-3 text-lg font-semibold text-white rounded-full bg-blue-500 hover:bg-blue-600 cursor-pointer">
+              Envoyer
+              <img src="/arrow_icon.png" alt="" class="h-4 ml-2">
+            </button>
+
+          </div>
+
+
+
+        </EditForm>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  @code {
+    [SupplyParameterFromForm]
+
+    private DemoRequestModel ao { get; set; } = new DemoRequestModel();
+
+    private void ClearForm() => ao = new DemoRequestModel();
+
+    private async Task AddAO()
+    {
+      Console.WriteLine("adding " + ao.FirstName);
+
+
+      await aoService.AddCo(ao);
+
+
+
+    }
+
+  }
+
+}

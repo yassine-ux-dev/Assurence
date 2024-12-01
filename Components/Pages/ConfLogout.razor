@@ -1,0 +1,57 @@
+@page "/conflogout"
+@using System;
+@using BlazorApp.Components.Service
+@inject NavigationManager Navigation
+@inject UserService userService
+
+
+<div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+  style="width:  ? '200px' : 'auto'; z-index: 100000; z-10">
+  <div class="relative bg-gray-200 p-5 max-w-lg w-full rounded-lg shadow-lg">
+    <EditForm Model="@A" OnValidSubmit="@Annuler" FormName="formName1" methode="post">
+
+      <button type="submit" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 closeBtn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+          <path
+            d="M13.2328 2.7672C12.9984 2.53282 12.6187 2.53282 12.3843 2.7672L7.99993 7.1516L3.61553 2.7672C3.38115 2.53282 3.00147 2.53282 2.76709 2.7672C2.53271 3.00158 2.53271 3.38126 2.76709 3.61564L7.15149 8.00004L2.76709 12.3844C2.53271 12.6188 2.53271 12.9985 2.76709 13.2329C3.00147 13.4673 3.38115 13.4673 3.61553 13.2329L7.99993 8.84848L12.3843 13.2329C12.6187 13.4673 12.9984 13.4673 13.2328 13.2329C13.4672 12.9985 13.4672 12.6188 13.2328 12.3844L8.84837 8.00004L13.2328 3.61564C13.4672 3.38126 13.4672 3.00158 13.2328 2.7672Z"
+            fill="currentColor"></path>
+        </svg>
+      </button>
+    </EditForm>
+    <div class="text-center">
+      <div class="text-xl lg:text-2xl font-bold text-secondary-base mb-4">Déconnection</div>
+      <div class="text-red-600 mb-6">❝Ê𝐭𝐞𝐬-𝐯𝐨𝐮𝐬 𝐬û𝐫 𝐝𝐞 𝐯𝐨𝐮𝐥𝐨𝐢𝐫 𝐯𝐨𝐮𝐬 𝐝é𝐜𝐨𝐧𝐧𝐞𝐜𝐭𝐞𝐫❞</div>
+
+
+
+      <div class="flex justify-center">
+        <EditForm Model="@A" OnValidSubmit="@Logout" FormName="formName3" method="post">
+          <button type="submit"
+            class="inline-block min-w-min py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline">Déconnecter</button>
+        </EditForm>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+@code {
+  private Admin A { get; set; } = new();
+
+  private void Annuler()
+  {
+    Navigation.NavigateTo("/");
+
+
+  }
+  private void Logout()
+  {
+    userService.DeleteEmailIdCookie();
+    userService.DeleteRoleCookie();
+    Navigation.NavigateTo("/login");
+
+  }
+}

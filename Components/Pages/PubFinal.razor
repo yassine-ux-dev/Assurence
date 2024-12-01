@@ -1,78 +1,122 @@
 @page "/PF/{Id:int}"
 @using Microsoft.EntityFrameworkCore
 @inject AppDbContext context
-@using BlazorApp.Components.Bd;
+@using BlazorApp.Components.Bd
 @inject NavigationManager Navigation
-@using BlazorApp.Components.Model;
-@using Microsoft.AspNetCore.Components;
+@using BlazorApp.Components.Model
+@using Microsoft.AspNetCore.Components
+@using BlazorApp.Components.Service
+@inject AoService aoService
+<style>
+  .box {
+    position: relative;
 
+    font-family: Helvetica;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0px 10px;
+  }
 
-<EditForm Model="@ao" OnValidSubmit="@migrate" FormName="postt" class="w-full md:w-1/2 lg:w-2/3 xl:w-1/2 mx-auto">
-  <div class="w-full md:w-[810px] md:ml-[-200px] ">
+  .contact-left button {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 16px;
+    gap: 10px;
+    border: none;
+    border-radius: 50px;
+    ;
+    cursor: pointer;
 
-    <div class="overflow-x-auto h-[700px]">
-      <table class="w-full " style="border: 1px solid #ffecec;">
-        <thead class="bg-gray-50">
-          <tr>
-            <th colspan="2" class="p-0.5  shadow-md max-w-[810px] mx-auto    md:bg-blue bg-blue-600">
-              Mon besoin
-            </th>
-          </tr>
-        </thead>
-        <tbody class="overflow-x-auto h-[370px]">
-          <tr>
-            <td class="py-2 font-semibold">Titre</td>
-            <td class="py-2">@ao.Titre</td>
-          </tr>
-          <tr>
-            <td class="py-2 font-semibold">Email Address</td>
-            <td class="py-2">@ao.EmailA</td>
-          </tr>
-          <tr>
-            <td class="py-2 font-semibold">Description</td>
-            <td class="py-2">@ao.Description</td>
-          </tr>
-          <tr>
-            <td class="py-2 font-semibold">Date de demande</td>
-            <td class="py-2">@ao.DateDemande</td>
-          </tr>
-          <tr>
-            <td class="py-2 font-semibold">Délais de réponse</td>
-            <td class="py-2">@ao.DelaisR</td>
-          </tr>
-          <tr>
-            <td class="py-2 font-semibold">Address</td>
-            <td class="py-2">@ao.Adress</td>
-          </tr>
-          <!-- Add more rows as needed -->
-        </tbody>
-        <thead class="bg-gray-50 ">
-          <tr>
-          <tr>
-            <th colspan="2" class="p-0.5  shadow-md max-w-[810px] mx-auto    md:bg-blue bg-blue-00">
-              Documents liés
-            </th>
-          </tr>
-          </tr>
-        </thead>
-        <tr>
-          <td colspan="2" class="py-2">@ao.Document</td>
-        </tr>
-      </table>
-    </div>
-    <div class="flex justify-end" style="margin-top: 1px;">
+  }
 
-      <a type="submit"
-        class="mr-2 bg-white-500 hover:bg-blue-100 border border-blue-500 text-black font-weight py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        style="height: 35px;">
-        <i class="fa-solid fa-pen"></i>
-        Sauvegarder dans le brouillon</a>
-      <button type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        style="height: 35px;">Suivant</button>
-    </div>
+  .contact-left button img {
+    height: 15px;
+
+  }
+</style>
+<div class="flex">
+  <div style="width: 20px" class="timeline-container">
+    <Timeline />
   </div>
-</EditForm>
+  <EditForm Model="@ao" OnValidSubmit="@migrate" FormName="Posttd" class="w-full" method="post">
+    <DataAnnotationsValidator />
+
+    <div class="md:mt-20 flex flex-col md:flex-row items-center p-20" style="margin-top: 130px; gap: 20px;">
+
+      <div class="contact-left ">
+        <img src="/checklist.png" alt="Image" class="w-[500] rounded-lg " style="height: 500px;margin-left:10px ">
+      </div>
+
+      <div class="contact-left w-full md:w-1/2 md:pl-12" style="padding: 0px; padding-right: 200px;">
+        <h5 class="text-4xl font-bold text-gray-900 leading-tight mb-4">
+          Veuillez vérifier vos données avant de postuler.
+        </h5>
+
+        <div class="mb-4">
+          <label>𝘛𝘪𝘵𝘳𝘦</label>
+          <p class="form-control w-full" style="border: 3px solid #eee6ff; padding: 5px; font-weight: bold;">
+            <i class="fas fa-check " style="margin-right: 5px;"></i>@ao.Titre
+          </p>
+        </div>
+
+        <div class="input-box mb-4">
+          <label>𝘋𝘦𝘴𝘤𝘳𝘪𝘱𝘵𝘪𝘰𝘯</label>
+          <p id="message" class="form-control w-full"
+            style="border: 3px solid #eee6ff; padding: 5px;  font-weight: bold;">
+            <i class="fas fa-check" style="margin-right: 5px;"></i>@ao.Description
+          </p>
+        </div>
+
+        <div class="column mb-4">
+          <div class="input-box">
+            <label>𝘋𝘦𝘭𝘢𝘪𝘴 𝘥𝘦 𝘳𝘦𝘱𝘰𝘯𝘴𝘦</label>
+            <p class="form-control w-full" style="border: 3px solid #eee6ff; padding: 5px; font-weight: bold;">
+              <i class="fas fa-check" style="margin-right: 5px;"></i>@ao.DelaisR
+            </p>
+          </div>
+        </div>
+
+        <div class="input-box address mb-4">
+          <label>Budget</label>
+          <p class="form-control w-full" style="border: 3px solid #eee6ff; padding: 5px; font-weight: bold;">
+            <i class="fas fa-check" style="margin-right: 5px;"></i>@ao.Budget
+          </p>
+        </div>
+
+        <div class="input-box address mb-4">
+          <label>𝘈𝘥𝘥𝘳𝘦𝘴𝘴</label>
+          <p class="form-control w-full" style="border: 3px solid #eee6ff; padding: 5px; font-weight: bold;">
+            <i class="fas fa-check" style="margin-right: 5px;"></i>@ao.Adress
+          </p>
+        </div>
+        <div class="flex justify-end space-x-4 items-center">
+          <a href="@($"/post/{ao.Id}")" class="flex items-center">
+            <button type="button"
+              class="text-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              style="height: 35px;">
+              Modifier
+            </button>
+          </a>
+          <button type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            style="height: 35px;">
+            Postuler
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </EditForm>
+
+
+
+</div>
+
+
+
+
 
 @code {
   [Parameter]
@@ -85,6 +129,7 @@
   {
     // Retrieve the Brouillon entity from the database based on the Id parameter
     ao = await context.Brouillons.FirstOrDefaultAsync(b => b.Id == Id);
+
   }
 
   private async Task migrate()
@@ -96,16 +141,19 @@
     app.EmailA = ao.EmailA;
     app.Description = ao.Description;
     app.Adress = ao.Adress;
-    // Copy other properties as needed
-    app.Document = ao.Document;
+    app.DateDemande = ao.DateDemande;
+    app.DelaisR = ao.DelaisR;
+    app.Budget = ao.Budget;
+
+    Console.WriteLine("Aoffre" + app.Budget);
     // Set the Aoffres entity's Id to the same value as the Brouillon entity's Id
-    app.Type = "Devis";
 
     // Update the Aoffres entity instead of adding a new one
-    context.Aoffres.Update(app);
+    await aoService.AddAo(app);
+    aoService.DelBrouillon(ao);
+
 
     // Save changes to the database
-    await context.SaveChangesAsync();
     Navigation.NavigateTo("/Dashboard");
   }
 }

@@ -1,178 +1,207 @@
-﻿<!--
-  This example requires updating your template:
+﻿@using System;
+@using BlazorApp.Components.Service
+@inject NavigationManager Navigation
+@inject UserService userService
 
-  ```
-  <html class="h-full bg-gray-100">
-  <body class="h-full">
-  ```
--->
-@using System;
-<div class=" min-h-90">
-  <nav class="bg-gray-800" style="height: 80px;">
-    <div class="mx-auto max-w-7xl px-4 sm:px-10 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <img class="h-8 w-15" style="margin-top: 30px;" src="/Logo.png" />
-            alt="Your Company">
-          </div>
-          <div class="hidden md:block" style="margin-top:13px">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a href="/Dashboard" class="bg-gray-900 text-white no-underline  rounded-md px-3 py-2 text-sm font-medium"
-                aria-current="page">Dashboard</a>
-              <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white no-underline rounded-md px-3 py-2 text-sm font-medium">Team</a>
-              <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white no-underline rounded-md px-3 py-2 text-sm font-medium">Projects</a>
-              <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white no-underline rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
-              <a href="/publier" id="publierId"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white no-underline rounded-md px-3 py-2 text-sm font-medium">Publier</a>
-            </div>
-          </div>
-        </div>
-        <div class="hidden md:block">
-          <div class="ml-4 flex items-center md:ml-6">
-
-            <a href="/Login" style="margin-top:13px" class="fix flex text-gray-500 max-w-xs no-underline items-center font-medium rounded-full bg-gray-800 text-sm focus:outline-none
-               focus:ring-2 focus:ring-white focus:ring-offset-2  focus:ring-offset-white-800">
-              login
-
-            </a>
-
-            <!-- Profile dropdown -->
-            <div class="relative ml-3">
-              <div style="margin-top:13px">
-                <a href="/logup" class="fix flex max-w-xs text-gray-500 items-center  font-medium no-underline rounded-full bg-gray-800 text-sm focus:outline-none 
-                  focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white-800">
-                  sign up
-                </a </div>
-
-                <!--
-                Dropdown menu, show/hide based on menu state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              -->
-                <div id="profil" class="hidden  right-0 z-10 mt-40 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg
-                ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical"
-                  aria-labelledby="user-menu-button" tabindex="1">
-                  <!-- Active: "bg-gray-100", Not Active: "" -->
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="1"
-                    id="user-menu-item-0">Your Profile</a>
-                  <a href="/login" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="1"
-                    id="user-menu-item-1">Settings</a>
-                  <a href="/logup" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="1"
-                    id="user-menu-item-2">Sign out</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="-mr-2 flex md:hidden">
-            <!-- Mobile menu button -->
-            <button id="buttonet" type="button"
-              class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-white-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              aria-controls="mobile-menu" aria-expanded="false">
-              <span class="absolute -inset-0.5 bg-white-400"></span>
-              <span class="sr-only">Open main menu</span>
-              <!-- Menu open: "hidden", Menu closed: "block" -->
-              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-              <!-- Menu open: "block", Menu closed: "hidden" -->
-              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="hidden" id="mobile-menu">
-        <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-            aria-current="page">Dashboard</a>
-          <a href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-          <a href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-          <a href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
-          <a href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Reports</a>
-        </div>
-        <div class="border-t border-gray-700 pb-3 pt-4">
-          <div class="flex items-center px-5">
-            <div class="flex-shrink-0">
-              <img class="h-10 w-10 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="">
-            </div>
-            <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-              <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
-            </div>
-            <button type="button"
-              class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-              <span class="absolute -inset-1.5"></span>
-              <span class="sr-only">View notifications</span>
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-              </svg>
-            </button>
-          </div>
-          <div class="mt-3 space-y-1 px-2">
-            <a href="#"
-              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-              Profile</a>
-            <a href="#"
-              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-            <a href="#"
-              class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
-              out</a>
-          </div>
-        </div>
-      </div>
-  </nav>
-
-
-
-  <script>
-    if (window.location.href.includes("/publier"))
-    {
-      document.getElementById("headerTitle").textContent = "Publication";
-    }
-  </script>
-
-  <main>
-    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-      <!-- Your content -->
+<head>
+  <link href="Styl.css" rel="stylesheet">
+</head>
+<nav class="relative flex w-full flex-wrap items-center justify-between  shadow-dark-mild dark:bg-neutral-700 "
+  style="height: 90px;background-color:#F5F7FA">
+  <div class="flex w-full flex-wrap items-center justify-between px-2">
+    <div>
+      <a class="mx-10 my-7 flex items-center lg:mb-0 lg:mt-0" href="#">
+        <img class="h-10 w-15" style="margin-top: 1px;" src="/Logo.png" />
+      </a>
     </div>
-  </main>
-</div>
+
+    <!-- Hamburger button for mobile view -->
+    <button
+      class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+      type="button" data-twe-collapse-init data-twe-target="#navbarSupportedContent4"
+      aria-controls="navbarSupportedContent4" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Hamburger icon -->
+      <span class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+            clip-rule="evenodd" />
+        </svg>
+      </span>
+    </button>
+
+    <!-- Collapsible navbar container -->
+    <div class="!visible mt-2 hidden flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto"
+      id="navbarSupportedContent4" data-twe-collapse-item>
+      <!-- Left links -->
+      <ul class="list-style-none me-auto flex flex-col ps-0 lg:mt-1 lg:flex-row" data-twe-navbar-nav-ref>
+        @if (userService.IsAuthenticated())
+        {
+          if (userService.GetRoleFromCookie() == "Admin")
+          {
+            <li class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2" data-twe-nav-item-ref>
+              <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                aria-current="page" href="/TableAppelOffre" data-twe-nav-link-ref style="text-decoration: none;"><b>Admin
+                  interface</b>
+              </a>
+            </li>
+          }
+
+          else
+          {
+            <li class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2" data-twe-nav-item-ref>
+              <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                aria-current="page" href="/Dashboard" data-twe-nav-link-ref style="text-decoration: none;">
+                <b>Tableau de bord</b>
+              </a>
+            </li>
+
+
+
+            if (userService.GetRoleFromCookie() == "Client")
+            {
+              <li class="my-4 ps-2 lg:my-0 lg:pe-1 lg:ps-2" data-twe-nav-item-ref>
+                <a class="text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  aria-current="page" href="/Publier" data-twe-nav-link-ref style="text-decoration: none;"><b>Editer</b></a>
+              </li>
+            }
+
+          }
+        }
+
+
+
+      </ul>
+      @if (userService.IsAuthenticated())
+      {
+        if (userService.GetRoleFromCookie() == "Client")
+        {
+          <a href="/Mesrelations">
+            <img src="/notification.png" style="margin-right: 20px;">
+          </a>
+
+
+          <a href="/Parametre" class="flex items-center no-underline">
+            <img src="/Hammadi.png" class="h-8 w-15" style="margin-top: -6px;" />
+            <p class="mr-5 mt-1">@UserName</p>
+          </a>
+        }
+        else if (userService.GetRoleFromCookie() == "Fournisseur")
+        {
+          <a href="/Mesrelations">
+            <img src="/notification.png" style="margin-right: 20px;">
+          </a>
+
+
+          <a href="/Profilefournisseur" class="flex items-center no-underline">
+            <img src="/Hammadi.png" class="h-8 w-15" style="margin-top: -6px;" />
+            <p class="mr-5 mt-1">@UserName</p>
+          </a>
+        }
+        else
+        {
+          <img src="/Hammadi.png" class="h-8 w-15" style="margin-top: -6px;" />
+          <p class="mr-5 mt-1">@UserName</p>
+        }
+
+
+        <a href="/conflogout">
+
+          <button type="submit" data-twe-ripple-init data-twe-ripple-color="light"
+            class="me-3 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+            Deconnection
+          </button></a>
+
+
+      }
+      else
+      {
+        <div class="flex items-center mb-2">
+          <a href="/login">
+            <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
+              class="me-3 inline-block rounded px-2 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-secondary-600 dark:hover:text-secondary-500 dark:focus:text-secondary-500 dark:active:text-secondary-500">
+              Login
+            </button>
+          </a>
+          <EditForm Model="@ao" OnValidSubmit="ShowInscriptionModal" FormName="formName">
+
+            <div class="login-interface">
+              <button type="submit" data-twe-ripple-init data-twe-ripple-color="light"
+                class="moving-button me-3 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                Sign up for free
+              </button>
+            </div>
+          </EditForm>
+        </div>
+      }
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
 <script>
-
-  document.getElementById('buttonet').addEventListener('click', function ()
+  document.addEventListener('DOMContentLoaded', function ()
   {
-    var menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
-    menu.classList.toggle('block');
+    const button = document.querySelector('button[data-twe-target="#navbarSupportedContent4"]');
+    const navbar = document.querySelector('#navbarSupportedContent4');
 
+    function toggleNavbarDisplay()
+    {
+      navbar.classList.toggle('hidden');
+      navbar.classList.toggle('flex');
+      navbar.classList.toggle('flex-col'); // Apply flex column layout on toggle
+    }
+
+
+    button.addEventListener('click', toggleNavbarDisplay);
+
+    // Check media query for screen size changes
+    const mediaQuery = window.matchMedia('(max-width: 992px)'); // Adjust breakpoint as needed
+
+    function handleMediaQueryChange(e)
+    {
+      if (e.matches)
+      {
+        // Media query matches, apply flex column layout
+        navbar.classList.add('flex-col');
+        navbar.classList.remove('flex');
+      } else
+      {
+        // Media query doesn't match, reset to default flex row layout
+        navbar.classList.remove('flex-col');
+        navbar.classList.add('flex');
+      }
+    }
+
+
+    // Initial setup based on media query
+    handleMediaQueryChange(mediaQuery);
+
+    // Listen for media query changes
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
   });
-
-
 </script>
 
-@* @code{
-*@
+
+@code {
+
+  private Brouillon ao { get; set; } = new Brouillon();
+  private string UserName { get; set; }
+  [Parameter] public EventCallback OnShowInscriptionModal { get; set; }
+
+
+  private async Task ShowInscriptionModal()
+  {
+    await OnShowInscriptionModal.InvokeAsync();
+  }
+
+
+  protected override void OnInitialized()
+  {
+    UserName = userService.GetEmailIdFromCookie();
+  }
+}

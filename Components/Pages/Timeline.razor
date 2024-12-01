@@ -1,0 +1,114 @@
+@page "/time"
+
+
+<style>
+  /* Variables */
+  :root {
+    --color-1: black;
+    --color-2: white;
+    --color-3: rgb(168, 50, 121);
+  }
+
+  /* Styling */
+  .timeline-container {
+    display: flex;
+    justify-content: flex-start;
+    /* Align the timeline to the left */
+  }
+
+  .timeline {
+    margin: 4em 0;
+    position: relative;
+    max-width: 46em;
+  }
+
+  .timeline::before {
+    background-color: var(--color-1);
+    content: '';
+    margin-left: -1px;
+    position: absolute;
+    top: 0;
+    left: 2em;
+    width: 2px;
+    height: 1000px;
+  }
+
+  .timeline-event {
+    position: relative;
+    margin-bottom: 550px;
+  }
+
+  .timeline-event:hover .timeline-event-icon {
+    transform: rotate(-45deg);
+    background-color: var(--color-3);
+  }
+
+  .timeline-event:hover .timeline-event-thumbnail {
+    box-shadow: inset 40em 0 0 0 var(--color-3);
+  }
+
+  .timeline-event-copy {
+    padding: 2em;
+    position: relative;
+    top: -1.875em;
+    left: 7px;
+    width: 400px;
+  }
+
+  .timeline-event-copy h3 {
+    font-size: 1.25em;
+  }
+
+  .timeline-event-copy h4 {
+    font-size: 1.2em;
+    margin-bottom: 1.2em;
+  }
+
+  .timeline-event-copy strong {
+    font-weight: 700;
+  }
+
+  .timeline-event-copy p:not(.timeline-event-thumbnail) {
+    padding-bottom: 1.2em;
+  }
+
+  .timeline-event-icon {
+    transition: transform 0.2s ease-in;
+    transform: rotate(45deg);
+    background-color: var(--color-1);
+    outline: 10px solid var(--color-2);
+    display: block;
+    margin: 0.5em 0.5em 100000px -0.5em;
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 1em;
+    height: 1em;
+  }
+
+  .timeline-event-thumbnail {
+    transition: box-shadow 0.5s ease-in 0.1s;
+    color: var(--color-2);
+    font-size: 0.75em;
+    background-color: var(--color-1);
+    box-shadow: inset 0 0 0 0em #ef795a;
+    display: inline-block;
+    margin-bottom: 1.2em;
+    padding: 0.25em 1em 0.2em 1em;
+  }
+</style>
+
+<div class="timeline-container">
+  <ul class="timeline">
+    <li class="timeline-event">
+      <label class="timeline-event-icon "></label>
+      <div class="timeline-event-copy">
+        <p class="timeline-event-thumbnail">Postuler</p>
+
+
+
+      </div>
+    </li>
+
+  </ul>
+</div>

@@ -1,0 +1,177 @@
+@page "/RequestReponse"
+@inject UserService userService
+
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@using System.Linq
+@inject NavigationManager Navigation
+@inject UserService userService
+@using System
+@inject UserService userService
+
+@inject AdminService adminService
+@inject NavigationManager Navigation
+@inject MailService mailService
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar With Bootstrap</title>
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="Add.css">
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <aside id="sidebar">
+      <SideAdmin />
+    </aside>
+    <div class="main">
+      <nav class="navbar navbar-expand px-4 py-3">
+        <form action="#" class="d-none d-sm-inline-block">
+
+        </form>
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                <img src="/account.png" class="avatar img-fluid" alt="">
+              </a>
+              <div class="dropdown-menu dropdown-menu-end rounded">
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="content px-3 py-4">
+        <div class="container-fluid">
+          <div class="mb-3">
+            <Entet />
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr class="highlight">
+
+                      <th class="px-1 py-1"> ID</th>
+                      <th class="px-1 py-1">ID Appel Offre</th>
+                      <th class="px-20 py-1">Detail</th>
+                      <th class="px-2 py-1">Prix Proposer</th>
+                      <th class="px-5 py-1">Date Saisie</th>
+
+                      <th class="px-20 py-1" style="width: 20px;">Demande</th>
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    @if (reponses != null)
+                    {
+                      @foreach (var Rp in reponses)
+                      {
+                            <tr>
+                              <td class="border px-1 py-2">@Rp.Id</td>
+                              <td class="border px-1 py-2"><a href="/ao/@Rp.IdAoffre">@Rp.IdAoffre</a>
+                              </td>
+
+                              <td class="border px-20 py-2">@Rp.Dettail</td>
+                              <td class="border px-2 py-2">@Rp.PrixProp</td>
+                              <td class="border px-5 py-2">@Rp.DateSaisie</td>
+                              <td class="border px-20 py-2">
+                                <div style="display: flex; width: 150px; ">
+                                  <EditForm Model="@Rp" OnValidSubmit="() => Accept(Rp)" FormName="@getformname("acpt",Rp.Id)">
+                                    <button type="submit"
+                                      class=" btnet border-2 border-yellow-400 bg-white text-yellow-400 w-[4] py-1 rounded-full hover:to-purple-600 transition-all duration-300"
+                                      style="font-size: 13px;">
+                                      Accepter</button>
+                                  </EditForm>
+                                  <EditForm Model="@Rp" OnValidSubmit="() => Refuse(Rp)" FormName="@getformname("rfs",Rp.Id)">
+                                    <button type="submit"
+                                      class=" btnet border-2 border-red-400 bg-white text-red-400 w-[4] py-1 rounded-full hover:to-purple-600 transition-all duration-300"
+                                      style="font-size: 13px;">
+                                      Refuser</button>
+                                  </EditForm>
+
+
+                                </div>
+                              </td>
+
+
+
+
+                            </tr>
+                      }
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+<script>
+  const hamBurger = document.querySelector(".toggle-btn");
+
+  hamBurger.addEventListener("click", function ()
+  {
+    document.querySelector("#sidebar").classList.toggle("expand");
+  });</script>
+
+</html>
+
+@code {
+  private BlazorApp.Components.Model.Reponse Rp { get; set; }
+  private List<BlazorApp.Components.Model.Reponse> reponses { get; set; }
+  private BlazorApp.Components.Model.Notification nfc { get; set; }
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    reponses = await adminService.Getrp();
+  }
+  public async Task Accept(BlazorApp.Components.Model.Reponse Rp)
+  {
+    string email = (await userService.GetFournisseurbyId(Rp.IdFournisseur)).EmailId;
+    nfc = new();
+    nfc.Email = email;
+    nfc.Nfc = "Votre offre à été accepter.";
+    nfc.Date = DateTime.Now;
+    await adminService.AddMessage(nfc);
+    Rp.IsApprouved = true;
+    await adminService.Updaterep(Rp);
+    string retr = mailService.SendEmail(email, "votre offre a été accepter");
+    Navigation.NavigateTo("/Requestrepnse");
+  }
+  public async Task Refuse(BlazorApp.Components.Model.Reponse Rp)
+  {
+    string email = (await userService.GetFournisseurbyId(Rp.IdFournisseur)).EmailId;
+    nfc = new();
+    nfc.Email = email;
+    nfc.Nfc = "Votre offre à été refuser car il ne respecte pas nos regle.";
+    nfc.Date = DateTime.Now;
+    await adminService.AddMessage(nfc);
+    string retr = mailService.SendEmail(email, "votre offre a été réfuser car il ne respect pas nos régle");
+
+    await adminService.DelReponse(Rp);
+  }
+  public string getformname(string ch, int x)
+  {
+    return (ch + " FORM N°" + x);
+  }
+}

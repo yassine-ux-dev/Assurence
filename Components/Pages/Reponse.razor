@@ -1,0 +1,49 @@
+@page "/Repon"
+@using BlazorApp.Components.Model
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@using BlazorApp.Components.Service
+@inject AoService aoService
+@inject UserService userService
+@using System
+
+<EditForm Model="@Rp" OnValidSubmit="@AddReponse" FormName="addreponse" methode="Post">
+  <DataAnnotationsValidator />
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <InputText type="TextArea" id="description" @bind-Value="Rp.Dettail" class="form-control" />
+    <ValidationMessage For="@(() => Rp.Dettail)" />
+  </div>
+  <div class="form-group">
+    <label for="prixproposer">Prix Proposer:</label>
+    <InputNumber type="Number" id="prixproposer" @bind-Value="Rp.PrixProp" class="form-control" />
+    <ValidationMessage For="@(() => Rp.PrixProp)" />
+  </div>
+  <button type="submit" class="btn btn-primary" />
+</EditForm>
+
+
+
+
+@code {
+  [SupplyParameterFromForm]
+  private BlazorApp.Components.Model.Reponse Rp { get; set; } = new BlazorApp.Components.Model.Reponse();
+  [Parameter]
+  public int Id { get; set; }
+  private Fournisseur fsr { get; set; } = new();
+  private string mail;
+  private async Task OnInitializedAsync()
+  {
+    mail = userService.GetEmailIdFromCookie();
+    fsr = await userService.GetFournisseur(mail);
+  }
+
+  private async Task AddReponse()
+  {
+    Rp.IdFournisseur = fsr.Id;
+    Rp.IdAoffre = Id;
+    Rp.DateSaisie = DateTime.Now;
+    await aoService.AddRp(Rp);
+  }
+
+}

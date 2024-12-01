@@ -1,94 +1,93 @@
 @page "/Comment"
+@using BlazorApp.Components.Service
+@inject UserService userService
+@using BlazorApp.Components.Model
+@inject AppDbContext context
+@inject AoService aoService
 
+<style>
+  body {
+    background: linear-gradient(#ffdad5, #fff7f9);
+  }
+</style>
 
-@* Importer Tailwind CSS *@
-@* Vous devez inclure Tailwind CSS dans votre projet pour utiliser ces classes *@
-@* Assurez-vous d'ajouter Tailwind CSS à votre projet si ce n'est pas déjà fait *@
-@* Documentation Tailwind CSS : https://tailwindcss.com/docs *@
+<EditForm Model="@ao" OnValidSubmit="@AddAO" FormName="Posttd" class="w-full" method="post">
+  <DataAnnotationsValidator />
 
+  <div class="bg-white  md:mt-20 flex flex-col md:flex-row items-center p-20"
+    style="margin-top: 130px; gap-10 height:100%;    background: linear-gradient(#ffdad5, #fff7f9);">
 
-<EditForm Model="@demoRequest" OnValidSubmit="@HandleValidSubmit" class="w-full">
-  <div class="bg-white rounded-lg shadow-md mt-6 md:mt-0 flex flex-col md:flex-row items-center">
-
-    <!-- Left Column (Form Inputs) -->
-    <div class="w-full md:w-1/2 p-6">
-      <h2 class="text-2xl font-bold mb-4">Request your <strong>Free Demo</strong></h2>
-
-      <div class="mb-4">
-        <div id="errorDiv" class="errorDiv text-red-500 mb-4" style="display: none;">Fields in red are in error.</div>
-        <div class="mb-4">
-          <label for="first_name" class="block text-sm font-bold mb-2">Nom de l'entreprise</label>
-          <InputText id="first_name" @bind-Value="demoRequest.FirstName"
-            class="input-field w-full px-4 py-2 border rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label for="last_name" class="block text-sm font-bold mb-2">Email</label>
-          <InputText id="last_name" @bind-Value="demoRequest.LastName"
-            class="input-field w-full px-4 py-2 border rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label for="phone" class="block text-sm font-bold mb-2">Phone</label>
-          <InputText id="phone" @bind-Value="demoRequest.PhoneNumber"
-            class="input-field w-full px-4 py-2 border rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-bold mb-2">Que vous souhaitez</label>
-          <InputText id="email" @bind-Value="demoRequest.DesiredRequest"
-            class="input-field w-full px-4 py-2 border rounded-md" />
-        </div>
-        <div class="mb-4">
-          <label class="keepMe flex items-center">
-            <InputCheckbox @bind-Value="demoRequest.KeepMeUpdated" />
-            <span class="ml-2">Keep me updated on Procurement news</span>
-          </label>
-        </div>
-      </div>
+    <div class="contact-left w-full md:w-1/2 md:pr-12" style="padding:0px; padding-left:20px;">
+      <h3 class="text-4xl font-bold text-gray-900 leading-tight mb-4">
+        Demande d'appel d'offre
+      </h3>
 
       <div class="mb-4">
-        <label for="message" class="block text-sm font-bold mb-2">Commentaire</label>
-        <textarea id="message" @bind="demoRequest.Comment"
-          class="form-textarea w-full px-3 py-2 border rounded-md resize-none" rows="4"
-          placeholder="Write your thoughts here..."></textarea>
+        <label></label>
+        <InputText type="text"
+          class="w-[400px] h-[50px] border-none outline-none pl-[25px] font-medium text-gray-600 rounded-full"
+          placeholder="Enter full name" required @bind-Value="ao.FirstName" />
+
+
+      </div>
+      <div class="input-box address mb-4">
+        <label></label>
+        <InputText type="text"
+          class="w-[400px] h-[50px] border-none outline-none pl-[25px] font-medium text-gray-600 rounded-full"
+          placeholder="Enter street address" required @bind-Value="ao.Email" />
+
+        <ValidationMessage For="() => ao.Email" />
       </div>
 
-      <div>
-        <button type="submit" class="orangeButton px-6 py-3 text-white rounded-md flex items-center justify-center">
-          GET DEMO <span class="icons whiteArrowRight ml-2"></span>
-        </button>
+      <div class="input-box">
+        <label></label>
+
+        <InputTextArea id="message"
+          class="h-[140px] pt-[15px] w-[400px] rounded-[20px] border-none outline-none px-6 text-gray-600 placeholder-gray-400 focus:border-pink-300"
+          @bind-Value="ao.Comment" required rows="4" placeholder="Write your thoughts here..."></InputTextArea>
+        <ValidationMessage For="() => ao.Comment" />
       </div>
+
+
+
+
+
+
+
+      <br>
+
+      <button type="submit"
+        class="flex items-center px-6 py-3 text-lg font-semibold text-white rounded-full bg-gradient-to-l from-orange-400 to-pink-500 cursor-pointer">
+        Suivant
+        <img src="/arrow_icon.png" alt="" class="h-4 ml-2">
+      </button>
     </div>
 
-    <!-- Right Column (Image) -->
-    <div class="w-full md:w-1/2 p-6 md:pl-12">
-      <img src="/QUESTION.jpeg" alt="Image" class="w-full h-auto rounded-lg shadow-md">
+    <div class="hammas ">
+      <img src="/right_img.png" alt="Image" class="w-[500] rounded-lg " style="height: 500px;margin-left:80px ">
     </div>
-
   </div>
 </EditForm>
 
 
 
+
 @code {
-  // Modèle de données pour le formulaire
-  private DemoRequestModel demoRequest = new DemoRequestModel();
+  [SupplyParameterFromForm]
 
-  // Gérer la soumission valide du formulaire
-  private void HandleValidSubmit()
+  private DemoRequestModel ao { get; set; } = new DemoRequestModel();
+
+  private void ClearForm() => ao = new DemoRequestModel();
+
+  private async Task AddAO()
   {
-    // Manipuler les données après la soumission valide du formulaire
-    // Par exemple, envoyer les données à un service ou effectuer une action appropriée
-    // Vous pouvez également réinitialiser le formulaire ici si nécessaire
+    Console.WriteLine("adding " + ao.FirstName);
+
+
+    await aoService.AddCo(ao);
+
+
+
   }
 
-  // Modèle de données pour le formulaire
-  public class DemoRequestModel
-  {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Email { get; set; }
-    public string DesiredRequest { get; set; }
-    public bool KeepMeUpdated { get; set; }
-    public string Comment { get; set; }
-  }
 }

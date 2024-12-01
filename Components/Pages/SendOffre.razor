@@ -1,0 +1,235 @@
+@page "/Send/{Id:int}"
+@using System
+@inject UserService userService
+@inject AoService aoService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@inject NavigationManager Navigation
+
+<br><br><br><br><br>
+@if (ao != null)
+{
+  <div style="height:100px"></div>
+  <div class="w-full max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 dark:bg-gray-900 dark:text-gray-200">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col items-start space-y-2">
+        <a href="/Dashboard" title="< Back to results"
+          class="backToResults mets-command-link text-blue-500 hover:underline">&lt; Back to results</a>
+        <h1 class="text-2xl font-bold">@ao.Titre</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="w-8 h-8 text-primary">
+          <path
+            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+          </path>
+        </svg>
+        <span class="text-lg font-semibold"></span>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-xl font-bold mb-4">Budget</h2>
+        <ul class="space-y-2">
+          <li class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="w-5 h-5 text-primary">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+            <span>@ao.Budget TND</span>
+          </li>
+
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">Dates:</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span>Date de Demande:</span>
+            <span class="font-semibold">@ao.DateDemande.ToString("yyyy-MM-dd")</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Délais de Réalisation:</span>
+            <span class="font-semibold"> @ao.DelaisR.ToString("yyyy-MM-dd")</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Description</h2>
+      <div class="space-y-2">
+        @ao.Description
+      </div>
+    </div>
+    <div class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Contacte</h2>
+      <div class="w-full max-w-md text-left p-4">
+        @if (userService.GetRoleFromCookie() == "Fournisseur")
+        {
+          <p><b>Email:</b>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=@ao.EmailA"
+              class="text-blue-500 hover:underline text-left font-medium">
+              @ao.EmailA
+            </a>
+          </p>
+        }
+        else
+        {
+          <p><b>Email : </b>@ao.EmailA</p>
+        }
+        <p><b>Adresse : </b>
+          @ao.Adress</p>
+
+
+
+
+
+
+      </div>
+    </div>
+
+    @if (userService.GetRoleFromCookie() == "Fournisseur")
+    {
+      <div class="form-actions">
+        <a href="/Send/@Id" style="color: #3b3a3a; text-decoration: none;">
+          Envoyer un offre
+        </a>
+      </div>
+    }
+
+
+    @if (userService.GetRoleFromCookie() == "Client")
+    {
+      <div class="form-actions">
+        <a href="/reponses/@Id" style="color: #3b3a3a; text-decoration: none;">
+          <b> Voir les reponse de ce appele offre</b>
+        </a>
+      </div>
+    }
+
+  </div>
+  <br>
+
+  <br>
+}
+
+
+
+@if (Post)
+{
+  <div class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+    style="width: @Post  ? '200px' : 'auto'; z-index: 100000; z-10">
+    <div class="relative bg-gray-100 p-5 max-w-lg w-full rounded-lg shadow-lg">
+
+      <a href="/@Id">
+        <button type="submit" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 closeBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
+            <path
+              d="M13.2328 2.7672C12.9984 2.53282 12.6187 2.53282 12.3843 2.7672L7.99993 7.1516L3.61553 2.7672C3.38115 2.53282 3.00147 2.53282 2.76709 2.7672C2.53271 3.00158 2.53271 3.38126 2.76709 3.61564L7.15149 8.00004L2.76709 12.3844C2.53271 12.6188 2.53271 12.9985 2.76709 13.2329C3.00147 13.4673 3.38115 13.4673 3.61553 13.2329L7.99993 8.84848L12.3843 13.2329C12.6187 13.4673 12.9984 13.4673 13.2328 13.2329C13.4672 12.9985 13.4672 12.6188 13.2328 12.3844L8.84837 8.00004L13.2328 3.61564C13.4672 3.38126 13.4672 3.00158 13.2328 2.7672Z"
+              fill="currentColor"></path>
+          </svg>
+        </button>
+      </a>
+
+
+
+      <div class="text-xl lg:text-2xl font-bold text-secondary-base mb-4 justify-content-lg-start">Send form</div>
+      <p class="flex justify-content-lg-start gap-4">Send<img src="/message.png"></p>
+      <hr class="my-3 border-t border-gray-900 w-full">
+
+      <div class="text-center">
+
+        <EditForm Model="@Rp" OnValidSubmit="AddReponse" methode="Post" FormName="Posting">
+          <DataAnnotationsValidator />
+
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <InputTextArea id="message"
+              class="w-full h-36 border border-gray-300 rounded-2xl p-4 text-gray-600 placeholder-gray-400 focus:border-blue-300 resize-none whitespace-normal ..."
+              @bind-Value="Rp.Dettail" Required rows="4" placeholder=""></InputTextArea>
+            <ValidationMessage For="() => Rp.Dettail" />
+          </div>
+          <div class="form-group">
+            <label for="prixproposer">Prix Proposer:</label>
+            <InputNumber type="Number" id="prixproposer" @bind-Value="Rp.PrixProp" class="form-control" />
+            <ValidationMessage For="@(() => Rp.PrixProp)" />
+          </div>
+          <div class="flex justify-end gap-2" style="margin-top: 30px;">
+            <a href="/@Id">
+              <button type="button"
+                class="bg-white-500  text-black  border border-black py-2px-4 rounded focus:outline-none focus:shadow-outline"
+                style="height: 35px;">Cancel</button>
+            </a>
+            <button type="submit"
+              class="bg-white-500  text-black font-bold border border-black py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              style="height: 35px;">Send</button>
+          </div>
+
+        </EditForm>
+
+      </div>
+    </div>
+  </div>
+}
+
+
+
+
+@code {
+
+
+
+  [Parameter]
+  public int Id { get; set; }
+  [SupplyParameterFromForm]
+
+  private BlazorApp.Components.Model.Reponse Rp { get; set; } = new
+  BlazorApp.Components.Model.Reponse();
+  public AO ao;
+  public readonly struct ParameterView;
+
+
+  private Fournisseur fsr { get; set; } = new();
+
+  private bool Post = true;
+
+
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    // Load data asynchronously
+    ao = await aoService.GetaoffreById(Id);
+    fsr = await userService.GetFournisseur(userService.GetEmailIdFromCookie());
+  }
+  private async Task AddReponse()
+  {
+    if (fsr != null)
+    {
+      Rp.IdFournisseur = fsr.Id;
+    }
+    Rp.IdAoffre = Id;
+    Rp.DateSaisie = DateTime.Now;
+    await aoService.AddRp(Rp);
+    Navigation.NavigateTo("/Dashboard");
+  }
+  public void ShowPostModal()
+  {
+    // Set Post to true when the button is clicked
+    Post = true;
+
+    // Additional logic for showing the post modal if needed
+  }
+
+
+  private void HidePostModal()
+  {
+    Post = true;
+
+  }
+
+
+}

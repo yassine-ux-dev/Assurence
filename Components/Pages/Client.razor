@@ -1,0 +1,100 @@
+@page "/ReqClient"
+@using System
+@inject UserService userService
+@using BlazorApp.Components.Model
+@using BlazorApp.Components.Service
+@inject AdminService adminService
+@inject NavigationManager Navigation
+@inject MailService mailService
+
+
+<br><br><br>
+
+<div class="overflow-x-auto sm:w-full lg:w-3/4 lg:mx-auto">
+  <table class="w-full text-left whitespace-nowrap">
+    <thead>
+      <tr class=" text-white" style="background-color: #13668f; text-color:white">
+        <th class=" px-4 py-2">ID</th>
+        <th class="px-4 py-2">Name</th>
+        <th class="px-4 py-2">Email</th>
+        <th class="px-4 py-2">Phone</th>
+        <th class="px-4 py-2">Request</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (clients != null)
+      {
+        @foreach (var clt in clients)
+        {
+          <tr>
+            <td class="border px-4 py-2">@clt.Id</td>
+            <td class="border px-4 py-2">@clt.Name</td>
+            <td class="border px-4 py-2">@clt.EmailId</td>
+            <td class="border px-4 py-2">@clt.Phone</td>
+            <td class="border px-4 py-2">
+
+              <a class="flex items-center justify-content-lg-start gap-7">
+                <EditForm Model="@clt" OnValidSubmit="() => Accept(clt)" FormName="@clt.Name">
+                  <button type="submit"
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded border border-gray-500 ">
+                    Accepter
+                  </button>
+                </EditForm>
+                <EditForm Model="@clt" OnValidSubmit="() => Refuse(clt)" FormName="@clt.EmailId">
+
+                  <button class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-3 rounded border border-gray-500">
+                    Refuser
+                  </button>
+                </EditForm>
+
+              </a>
+
+
+
+            </td>
+          </tr>
+        }
+      }
+      else
+      {
+        <p class="text-center mt-4">il n y'a pas de demande client pour le mouments</p>
+      }
+    </tbody>
+  </table>
+</div>
+
+@code {
+
+
+  private BlazorApp.Components.Model.Client clt { get; set; }
+  private List<BlazorApp.Components.Model.Client> clients { get; set; }
+  private BlazorApp.Components.Model.Notification nfc { get; set; }
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    clients = await adminService.Getclt();
+
+    // If the 'clt' object is not initialized yet, retrieve the client by email
+
+
+  }
+  public async Task Accept(BlazorApp.Components.Model.Client client)
+  {
+    nfc = new();
+    nfc.Email = client.EmailId;
+    nfc.Nfc = "Merci d'avoir rejoint notre site. ";
+    nfc.Date = DateTime.Now;
+    await adminService.AddMessage(nfc);
+    client.IsApprouved = true;
+    await adminService.UpdateClient(client);
+    string retr = mailService.SendEmail(client.EmailId, "votre compte a été accepter");
+    Navigation.NavigateTo("/ReqClient");
+  }
+  public async Task Refuse(BlazorApp.Components.Model.Client client)
+  {
+    string retr = mailService.SendEmail(client.EmailId, "votre compte a été réfuser car il ne respect pas nos régle");
+    await adminService.DelClient(client);
+  }
+
+}

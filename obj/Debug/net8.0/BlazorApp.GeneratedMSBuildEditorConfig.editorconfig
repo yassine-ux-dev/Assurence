@@ -22,24 +22,48 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Acheteur.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBY2hldGV1ci5yYXpvcg==
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Layout/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/AdmineInterface.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pbmVJbnRlcmZhY2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/AdminPage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Archieve.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBcmNoaWV2ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Ass.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBc3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Blog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Brouillan.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCcm91aWxsYW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Client.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDbGllbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Commentaire.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb21tZW50YWlyZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Count.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudC5yYXpvcg==
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/ConfLogout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb25mTG9nb3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Contacterequipe.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb250YWN0ZXJlcXVpcGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Dashboard.razor]
@@ -48,6 +72,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Detail.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZXRhaWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/EnCour.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFbkNvdXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Entet.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFbnRldC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Error.razor]
@@ -62,20 +94,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaWNoaWVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Filllle.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaWxsbGxlLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Final.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGaW5hbC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Footer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGb290ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/InputPassword.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnB1dFBhc3N3b3JkLnJhem9y
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/IPayment.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJUGF5bWVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Login.razor]
@@ -90,32 +114,132 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2d1cC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/New.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOZXcucmF6b3I=
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/LogupClient.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2d1cENsaWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/LogupFournisseur.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2d1cEZvdXJuaXNzZXVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Mesnotification.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNZXNub3RpZmljYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Mesrelations.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNZXNyZWxhdGlvbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/ModifierBr.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNb2RpZmllckJyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/NewLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOZXdMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Notif.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xOb3RpZi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Offres.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPZmZyZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Parametre.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQYXJhbWV0cmUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/PaymentSucc.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQYXltZW50U3VjYy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Pos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Post.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Postd.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQb3N0ZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/PubFinal.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQdWJGaW5hbC5yYXpvcg==
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Profile.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9maWxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Profilefournisseur.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9maWxlZm91cm5pc3NldXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Pubfinal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQdWJmaW5hbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Publier.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQdWJsaWVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Re.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Reponse.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXBvbnNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/ReponseAo.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXBvbnNlQW8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/ReqReoponse.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXFSZW9wb25zZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/RequesAppelOffre.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXF1ZXNBcHBlbE9mZnJlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/RequestClient.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXF1ZXN0Q2xpZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/RequestFournisseurr.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZXF1ZXN0Rm91cm5pc3NldXJyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/SendOffre.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZW5kT2ZmcmUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/SideAdmin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaWRlQWRtaW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/SideBar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaWRlQmFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Timeline.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUaW1lbGluZS5yYXpvcg==
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/SideMessage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaWRlTWVzc2FnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Tableau.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUYWJsZWF1LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/TableauboardAdmin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUYWJsZWF1Ym9hcmRBZG1pbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Test.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUZXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Pages/Timeline.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUaW1lbGluZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MSI/Desktop/NAV/BlazorApp/Components/Routes.razor]
